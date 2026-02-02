@@ -1,0 +1,57 @@
+category: backup_files
+description: Find backup files and archives
+
+templates:
+  - pattern: 'site:{domain} ext:bak'
+    description: 'Find .bak backup files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:bak'
+
+  - pattern: 'site:{domain} filetype:sql'
+    description: 'Find SQL database dumps'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:sql'
+
+  - pattern: 'site:{domain} ext:zip OR ext:tar OR ext:gz'
+    description: 'Find compressed archives'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:zip OR ext:tar OR ext:gz'
+
+  - pattern: 'site:{domain} inurl:backup'
+    description: 'Find backup URLs'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:backup'
+
+  - pattern: 'site:{domain} filetype:old OR filetype:backup'
+    description: 'Find old/backup files'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:old OR filetype:backup'
+
+  - pattern: 'site:{domain} intext:"backup" ext:zip'
+    description: 'Find backup ZIP files'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"backup" ext:zip'
+
+  - pattern: 'site:{domain} filetype:tar.gz intext:"backup"'
+    description: 'Find tar.gz backups'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:tar.gz intext:"backup"'
+
+  - pattern: 'site:{domain} ext:dump'
+    description: 'Find database dump files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:dump'
+
+  - pattern: 'site:{domain} (ext:bak OR ext:old OR ext:backup OR ext:zip OR ext:tar OR ext:gz OR ext:rar OR ext:7z OR ext:iso OR ext:tgz)'
+    description: 'Mass Backup Hunt (Search for 10+ backup formats)'
+    params: [domain]
+    examples:
+      - 'site:example.com (ext:bak OR ext:old OR ext:backup OR ext:zip OR ext:tar OR ext:gz OR ext:rar OR ext:7z OR ext:iso OR ext:tgz)'

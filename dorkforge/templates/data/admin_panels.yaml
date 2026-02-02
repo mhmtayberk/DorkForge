@@ -1,0 +1,95 @@
+name: "Admin Panels"
+description: "Discover administrative interfaces and control panels beyond simple login pages"
+version: "1.0"
+author: "DorkForge"
+tags:
+  - admin
+  - control-panel
+  - dashboard
+  - authentication
+  - access-control
+  
+filters:
+  - id: "tech"
+    label: "Technology"
+    type: "multi-select"
+    key: "description_contains"
+    options:
+      - { value: "WordPress", label: "WordPress" }
+      - { value: "Joomla", label: "Joomla" }
+      - { value: "Drupal", label: "Drupal" }
+      - { value: "cPanel", label: "cPanel/WHM" }
+      - { value: "Plesk", label: "Plesk" }
+      - { value: "phpMyAdmin", label: "phpMyAdmin" }
+      - { value: "Webmin", label: "Webmin" }
+
+  - id: "interface"
+    label: "Interface Type"
+    type: "multi-select"
+    key: "description_contains"
+    options:
+      - { value: "Dashboard", label: "Dashboard" }
+      - { value: "Login", label: "Login Page" }
+      - { value: "Control Panel", label: "Control Panel" }
+      - { value: "Console", label: "Console" }
+
+templates:
+  - pattern: 'site:{domain} inurl:admin | inurl:administrator'
+    description: "Generic admin URLs"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} intitle:"Admin Panel" | intitle:"Control Panel"'
+    description: "Admin panel titles"
+    operators: [site, intitle]
+    
+  - pattern: 'site:{domain} inurl:wp-admin | inurl:wp-login'
+    description: "WordPress admin area"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:cpanel | inurl:whm'
+    description: "cPanel/WHM hosting controls"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:plesk | inurl:plesk-stat'
+    description: "Plesk control panel"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} intitle:"Dashboard" inurl:admin'
+    description: "Admin dashboards"
+    operators: [site, intitle, inurl]
+    
+  - pattern: 'site:{domain} inurl:"/admin/" | inurl:"/administrator/"'
+    description: "Admin directory paths"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:manager | inurl:management'
+    description: "Management interfaces"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} intitle:"phpMyAdmin" inurl:phpmyadmin'
+    description: "phpMyAdmin database admin"
+    operators: [site, intitle, inurl]
+    
+  - pattern: 'site:{domain} inurl:"/backend/" | inurl:"/backoffice/"'
+    description: "Backend/backoffice interfaces"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:webmin | inurl:usermin'
+    description: "Webmin/Usermin control panels"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} intitle:"Admin Console" | intitle:"Management Console"'
+    description: "Admin/Management consoles"
+    operators: [site, intitle]
+    
+  - pattern: 'site:{domain} inurl:"/controlpanel/" | inurl:"/cp/"'
+    description: "Control panel shortcuts"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:joomla inurl:administrator'
+    description: "Joomla admin panel"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:drupal inurl:user/login'
+    description: "Drupal admin login"
+    operators: [site, inurl]

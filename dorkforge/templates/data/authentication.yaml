@@ -1,0 +1,63 @@
+category: authentication
+description: Find authentication and session related vulnerabilities
+
+templates:
+  - pattern: 'site:{domain} ext:log intext:"password"'
+    description: 'Find log files containing passwords'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:log intext:"password"'
+
+  - pattern: 'site:{domain} intext:"SESSION_ID" filetype:log'
+    description: 'Find session IDs in log files'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"SESSION_ID" filetype:log'
+
+  - pattern: 'site:{domain} inurl:"/auth" intext:"token"'
+    description: 'Find authentication tokens'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/auth" intext:"token"'
+
+  - pattern: 'site:{domain} ext:sql intext:"password" | intext:"username"'
+    description: 'Find SQL dumps with credentials'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:sql intext:"password" | intext:"username"'
+
+  - pattern: 'site:{domain} filetype:json intext:"api_key" | intext:"apikey"'
+    description: 'Find API keys in JSON files'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:json intext:"api_key" | intext:"apikey"'
+
+  - pattern: 'site:{domain} ext:env intext:"PASSWORD"'
+    description: 'Find .env files with passwords'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:env intext:"PASSWORD"'
+
+  - pattern: 'site:{domain} inurl:oauth intext:"access_token"'
+    description: 'Find OAuth access tokens'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:oauth intext:"access_token"'
+
+  - pattern: 'site:{domain} intext:"BEGIN RSA PRIVATE KEY"'
+    description: 'Find exposed SSH private keys'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"BEGIN RSA PRIVATE KEY"'
+
+  - pattern: 'site:{domain} ext:pem'
+    description: 'Find PEM certificate files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:pem'
+
+  - pattern: 'site:{domain} filetype:properties intext:"password"'
+    description: 'Find Java properties files with passwords'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:properties intext:"password"'

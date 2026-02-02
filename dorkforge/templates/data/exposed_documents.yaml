@@ -1,0 +1,75 @@
+category: exposed_documents
+description: Find publicly exposed official documents, contracts, and confidential files
+
+filters:
+  - id: "doctype"
+    label: "Document Type"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "ext:pdf", label: "PDF Document" }
+      - { value: "ext:docx", label: "Word Doc" }
+      - { value: "ext:xlsx", label: "Excel Sheet" }
+      - { value: "ext:pptx", label: "PowerPoint" }
+      - { value: "ext:txt", label: "Text File" }
+      - { value: "ext:csv", label: "CSV" }
+
+  - id: "sensitivity"
+    label: "Sensitivity"
+    type: "multi-select"
+    key: "description_contains"
+    options:
+      - { value: "Confidential", label: "Confidential" }
+      - { value: "Internal", label: "Internal Only" }
+      - { value: "Not for Distribution", label: "Not for Distribution" }
+      - { value: "Invoices", label: "Invoices" }
+      - { value: "Contracts", label: "Contracts" }
+
+templates:
+  - pattern: 'site:{domain} filetype:pdf (confidential OR "internal use only")'
+    description: 'Find confidential or internal PDFs'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:pdf (confidential OR "internal use only")'
+
+  - pattern: 'site:{domain} (filetype:doc OR filetype:docx) "strict confidence"'
+    description: 'Find Word documents marked as strictly confidential'
+    params: [domain]
+    examples:
+      - 'site:example.com (filetype:doc OR filetype:docx) "strict confidence"'
+
+  - pattern: 'site:{domain} (filetype:xls OR filetype:xlsx) "salary" OR "budget"'
+    description: 'Find Excel sheets with salary or budget info'
+    params: [domain]
+    examples:
+      - 'site:example.com (filetype:xls OR filetype:xlsx) "salary" OR "budget"'
+
+  - pattern: 'site:{domain} filetype:pdf "non-disclosure agreement" OR "NDA"'
+    description: 'Find exposed NDAs and legal contracts'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:pdf "non-disclosure agreement" OR "NDA"'
+
+  - pattern: 'site:{domain} intitle:"index of" (scanned OR invoice OR receipt)'
+    description: 'Find directories containing scanned docs or invoices'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" (scanned OR invoice OR receipt)'
+
+  - pattern: 'site:{domain} filetype:pdf "privileged and confidential"'
+    description: 'Find privileged legal documents'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:pdf "privileged and confidential"'
+
+  - pattern: 'site:{domain} ext:ppt OR ext:pptx "confidential"'
+    description: 'Find confidential presentations'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:ppt OR ext:pptx "confidential"'
+
+  - pattern: 'site:{domain} (ext:pdf OR ext:docx OR ext:pptx OR ext:doc OR ext:xls OR ext:xlsx OR ext:csv OR ext:txt OR ext:dot OR ext:dotm OR ext:docm OR ext:odt OR ext:wps OR ext:xps OR ext:wks OR ext:ppt OR ext:pptm OR ext:sldx OR ext:one OR ext:rtf)'
+    description: 'Mass Document Hunt (Search for 20+ document types)'
+    params: [domain]
+    examples:
+      - 'site:example.com (ext:pdf OR ext:docx OR ext:pptx OR ext:doc OR ext:xls OR ext:xlsx OR ext:csv OR ext:txt OR ext:dot OR ext:dotm OR ext:docm OR ext:odt OR ext:wps OR ext:xps OR ext:wks OR ext:ppt OR ext:pptm OR ext:sldx OR ext:one OR ext:rtf)'

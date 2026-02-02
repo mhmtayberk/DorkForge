@@ -1,0 +1,58 @@
+name: "Log Files"
+description: "Discover exposed log files (Apache, Nginx, application logs, error logs)"
+version: "1.0"
+author: "DorkForge"
+tags:
+  - information-disclosure
+  - logs
+  - debugging
+  - sensitive-data
+
+templates:
+  - pattern: 'site:{domain} ext:log'
+    description: "Find log files by extension"
+    operators: [site, ext]
+    
+  - pattern: 'site:{domain} inurl:"/logs/" | inurl:"/log/"'
+    description: "Find log directories"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} filetype:log "password" | "username"'
+    description: "Log files containing credentials"
+    operators: [site, filetype]
+    
+  - pattern: 'site:{domain} intext:"error" ext:log'
+    description: "Error logs"
+    operators: [site, intext, ext]
+    
+  - pattern: 'site:{domain} intitle:"index of" inurl:logs'
+    description: "Directory listing of log folders"
+    operators: [site, intitle, inurl]
+    
+  - pattern: 'site:{domain} "access.log" | "error.log" | "debug.log"'
+    description: "Common log file names"
+    operators: [site]
+    
+  - pattern: 'site:{domain} inurl:/var/log/'
+    description: "Unix/Linux log directories"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} ext:log intext:"stack trace"'
+    description: "Logs with stack traces"
+    operators: [site, ext, intext]
+    
+  - pattern: 'site:{domain} filetype:log "exception" | "fatal"'
+    description: "Critical error logs"
+    operators: [site, filetype]
+    
+  - pattern: 'site:{domain} inurl:apache inurl:logs'
+    description: "Apache web server logs"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:nginx inurl:logs'
+    description: "Nginx web server logs"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} ext:log "database"'
+    description: "Database-related logs"
+    operators: [site, ext]

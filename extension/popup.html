@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DorkForge</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header & Status -->
+        <header class="header">
+            <div class="logo">
+                <img src="icons/icon48.png" alt="Logo" class="logo-img">
+                <span class="logo-text">DorkForge</span>
+            </div>
+            <div class="server-status" id="serverStatus" title="Status">
+                <span class="status-dot online"></span>
+                <span class="status-text">Standalone</span>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="classic">Classic</button>
+            <button class="tab-btn" data-tab="ai">AI</button>
+            <button class="tab-btn" data-tab="tools">Tools</button>
+            <button class="tab-btn" data-tab="settings">Settings</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- classic Tab -->
+            <div id="classic" class="tab-content active">
+                <div class="form-group">
+                    <label>Target Domain</label>
+                    <input type="text" id="classicDomain" placeholder="example.com">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="classicCategory" disabled>
+                        <option value="">Loading categories...</option>
+                    </select>
+                </div>
+                <!-- Dynamic Filters Container -->
+                <div id="classicFilters" class="filters-container hidden"></div>
+
+                <button id="classicGenerateBtn" class="btn btn-primary" disabled>Generate Dorks</button>
+            </div>
+
+            <!-- AI Tab -->
+            <div id="ai" class="tab-content">
+                <div class="form-group">
+                    <label>Describe Goal</label>
+                    <textarea id="aiPrompt" rows="3" placeholder="Find login pages..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Domain (Optional)</label>
+                    <input type="text" id="aiDomain" placeholder="example.com">
+                </div>
+                <div class="form-group">
+                    <label>Provider</label>
+                    <select id="aiProvider">
+                        <option value="">Select a provider...</option>
+                    </select>
+                </div>
+                <!-- Model Select (Dynamic for Ollama) -->
+                <div class="form-group hidden" id="modelSelectGroup">
+                    <label>Model</label>
+                    <select id="ollamaModel">
+                        <option value="">Loading models...</option>
+                    </select>
+                </div>
+                <button id="aiGenerateBtn" class="btn btn-primary">Ask AI</button>
+            </div>
+
+            <!-- Settings Tab Content -->
+            <div id="settings" class="tab-content hidden">
+                <div class="form-group">
+                    <label class="label">OpenAI API Key</label>
+                    <input type="password" id="openaiKey" class="input" placeholder="sk-...">
+                </div>
+                <div class="form-group">
+                    <label class="label">Gemini API Key</label>
+                    <input type="password" id="geminiKey" class="input" placeholder="AIza...">
+                </div>
+                <div class="form-group">
+                    <label class="label">Claude API Key</label>
+                    <input type="password" id="claudeKey" class="input" placeholder="sk-ant-...">
+                </div>
+                <div class="form-group">
+                    <label class="label">Groq API Key</label>
+                    <input type="password" id="groqKey" class="input" placeholder="gsk-...">
+                </div>
+                <div class="form-group">
+                    <label class="label">Mistral API Key</label>
+                    <input type="password" id="mistralKey" class="input" placeholder="key...">
+                </div>
+                <div class="form-group">
+                    <label class="label">DeepSeek API Key</label>
+                    <input type="password" id="deepseekKey" class="input" placeholder="sk-...">
+                </div>
+                <div class="form-group">
+                    <label class="label">Ollama URL</label>
+                    <input type="text" id="ollamaUrl" class="input" placeholder="http://localhost:11434">
+                    <p class="hint-text" style="font-size: 11px; color: #64748b; margin-top: 4px;">
+                        ⚠️ Must start with <code>OLLAMA_ORIGINS="*" ollama serve</code>
+                    </p>
+                </div>
+                <div class="form-action">
+                    <button id="saveSettingsBtn" class="btn btn-primary w-full">Save Settings</button>
+                </div>
+                <div id="settingsStatus" class="status-message hidden"></div>
+                <div class="privacy-note"
+                    style="margin-top: 16px; padding: 10px; background: rgba(245, 158, 11, 0.05); border-radius: 8px; border-left: 3px solid #f59e0b;">
+                    <p style="font-size: 11px; color: #64748b; margin: 0; line-height: 1.4;">
+                        <strong style="color: #f59e0b;">Privacy & Security:</strong> API keys are stored in unencrypted
+                        local storage within your browser.
+                        Ensure your device and browser profile are secure.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Validation/Loading Overlay -->
+            <div id="loading" class="loading-overlay hidden">
+                <div class="spinner"></div>
+                <span>Generating...</span>
+            </div>
+
+            <!-- Tools Tab -->
+            <div id="tools" class="tab-content">
+                <div class="tool-switch">
+                    <button class="tool-btn active" data-tool="validate">Validate</button>
+                    <button class="tool-btn" data-tool="variations">Variations</button>
+                </div>
+
+                <div id="validateTool" class="tool-section active">
+                    <div class="form-group">
+                        <input type="text" id="validateInput" placeholder="site:example.com ext:pdf">
+                    </div>
+                    <button id="validateBtn" class="btn btn-secondary">Check Syntax</button>
+                </div>
+
+                <div id="variationsTool" class="tool-section hidden">
+                    <div class="form-group">
+                        <input type="text" id="variationsInput" placeholder="site:example.com">
+                    </div>
+                    <button id="variationsBtn" class="btn btn-secondary">Generate Variations</button>
+                </div>
+            </div>
+
+            <!-- Results Area -->
+            <div id="resultsArea" class="results-area hidden">
+                <div class="results-header">
+                    <span class="results-title">Results</span>
+                    <button id="clearResults" class="btn-icon" title="Clear">
+                        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="resultsContent" class="results-content"></div>
+            </div>
+
+        </main>
+    </div>
+    <!-- Scripts -->
+    <script src="js/dorkforge-core.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>

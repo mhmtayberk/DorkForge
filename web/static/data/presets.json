@@ -1,0 +1,66 @@
+[
+    {
+        "id": "bug_bounty_starter",
+        "name": "Bug Bounty Starter Pack",
+        "description": "Essential dorks for initial reconnaissance on a target program.",
+        "icon": "bug",
+        "dorks": [
+            {
+                "category": "config_files",
+                "keyword": "db_password"
+            },
+            {
+                "category": "login_pages",
+                "keyword": "admin"
+            },
+            {
+                "category": "exposed_documents",
+                "keyword": "confidential"
+            },
+            {
+                "category": "git_exposure",
+                "keyword": "index of .git"
+            }
+        ]
+    },
+    {
+        "id": "wordpress_audit",
+        "name": "WordPress Deep Audit",
+        "description": "Targeted checks for common WordPress vulnerabilities and misconfigurations.",
+        "icon": "wordpress",
+        "dorks": [
+            {
+                "category": "wordpress",
+                "keyword": "wp-config"
+            },
+            {
+                "category": "wordpress_plugins",
+                "keyword": "vulnerable plugin"
+            },
+            {
+                "category": "directory_listing",
+                "keyword": "wp-content/uploads"
+            }
+        ]
+    },
+    {
+        "id": "pii_hunter",
+        "name": "PII & Data Leak Hunter",
+        "description": "Focused on finding personally identifiable information and leaked data.",
+        "icon": "user-shield",
+        "dorks": [
+            {
+                "category": "exposed_documents",
+                "keyword": "passport"
+            },
+            {
+                "category": "exposed_documents",
+                "keyword": "salary"
+            },
+            {
+                "category": "database_dumps",
+                "keyword": "sql dump"
+            }
+        ]
+    }
+]

@@ -1,0 +1,75 @@
+category: development
+description: Find development and testing resources
+
+templates:
+  - pattern: 'site:{domain} inurl:"/staging" | inurl:"/dev" | inurl:"/test"'
+    description: 'Find staging and development environments'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/staging" | inurl:"/dev" | inurl:"/test"'
+
+  - pattern: 'site:{domain} intitle:"Swagger UI" | intitle:"API Documentation"'
+    description: 'Find Swagger/OpenAPI documentation'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"Swagger UI" | intitle:"API Documentation"'
+
+  - pattern: 'site:{domain} inurl:"/api/v1" | inurl:"/api/v2" | inurl:"/api/docs"'
+    description: 'Find API documentation endpoints'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/api/v1" | inurl:"/api/v2" | inurl:"/api/docs"'
+
+  - pattern: 'site:{domain} ext:git intext:"index"'
+    description: 'Find exposed .git directories'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:git intext:"index"'
+
+  - pattern: 'site:{domain} inurl:"/.env"'
+    description: 'Find exposed .env files'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/.env"'
+
+  - pattern: 'site:{domain} intitle:"Index of /" "package.json"'
+    description: 'Find exposed Node.js package.json files'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"Index of /" "package.json"'
+
+  - pattern: 'site:{domain} ext:dockerfile | ext:dockerignore'
+    description: 'Find Docker configuration files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:dockerfile | ext:dockerignore'
+
+  - pattern: 'site:{domain} inurl:"graphql" | inurl:"graphiql"'
+    description: 'Find GraphQL endpoints and playgrounds'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"graphql" | inurl:"graphiql"'
+
+  - pattern: 'site:{domain} ext:tf intext:"terraform" | ext:tfvars'
+    description: 'Find Terraform configuration files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:tf intext:"terraform" | ext:tfvars'
+
+  - pattern: 'site:{domain} inurl:"/jenkins" | intitle:"Dashboard [Jenkins]"'
+    description: 'Find Jenkins CI/CD dashboards'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/jenkins" | intitle:"Dashboard [Jenkins]"'
+
+  - pattern: 'site:{domain} inurl:"postman" ext:json'
+    description: 'Find Postman collection exports'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"postman" ext:json'
+
+  - pattern: 'site:{domain} intitle:"GitLab" | intitle:"GitHub Enterprise"'
+    description: 'Find self-hosted Git services'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"GitLab" | intitle:"GitHub Enterprise"'

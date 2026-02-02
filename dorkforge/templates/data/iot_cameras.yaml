@@ -1,0 +1,92 @@
+category: iot_cameras
+description: Find IoT devices and IP cameras
+
+filters:
+  - id: "vendor"
+    label: "Camera Brand"
+    type: "multi-select"
+    key: "brand"
+    options:
+      - { value: "hikvision", label: "Hikvision" }
+      - { value: "dahua", label: "Dahua" }
+      - { value: "axis", label: "Axis" }
+      - { value: "foscam", label: "Foscam" }
+      - { value: "panasonic", label: "Panasonic" }
+      - { value: "reolink", label: "Reolink" }
+
+  - id: "device_type"
+    label: "Device Type"
+    type: "select"
+    key: "device"
+    options:
+      - { value: "webcam", label: "Webcam" }
+      - { value: "ip camera", label: "IP Camera" }
+      - { value: "cctv", label: "CCTV System" }
+      - { value: "dvr", label: "DVR/NVR" }
+
+templates:
+  - pattern: 'inurl:"/view/view.shtml"'
+    description: 'Find network cameras (generic)'
+    params: []
+    examples:
+      - 'inurl:"/view/view.shtml"'
+
+  - pattern: 'intitle:"Live View / - AXIS" | inurl:view/view.shtml'
+    description: 'Find AXIS IP cameras'
+    params: []
+    examples:
+      - 'intitle:"Live View / - AXIS" | inurl:view/view.shtml'
+
+  - pattern: 'intitle:"WEB VIEWER FOR PANASONIC NETWORK CAMERA"'
+    description: 'Find Panasonic network cameras'
+    params: []
+    examples:
+      - 'intitle:"WEB VIEWER FOR PANASONIC NETWORK CAMERA"'
+
+  - pattern: 'inurl:"/cgi-bin/guestimage.html"'
+    description: 'Find Webcamxp cameras'
+    params: []
+    examples:
+      - 'inurl:"/cgi-bin/guestimage.html"'
+
+  - pattern: 'intitle:"Yawcam" intext:"Motion detection"'
+    description: 'Find Yawcam webcam software'
+    params: []
+    examples:
+      - 'intitle:"Yawcam" intext:"Motion detection"'
+
+  - pattern: 'site:{domain} inurl:"/cgi-bin/videoconfiguration.cgi"'
+    description: 'Find camera configuration interfaces'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/cgi-bin/videoconfiguration.cgi"'
+
+  - pattern: 'intitle:"Network Camera" intext:"MOBOTIX"'
+    description: 'Find MOBOTIX cameras'
+    params: []
+    examples:
+      - 'intitle:"Network Camera" intext:"MOBOTIX"'
+
+  - pattern: 'inurl:":8081/" intitle:"camera"'
+    description: 'Find cameras on port 8081'
+    params: []
+    examples:
+      - 'inurl:":8081/" intitle:"camera"'
+
+  - pattern: 'site:{domain} inurl:"printer" | inurl:"print" intitle:"status"'
+    description: 'Find network printer status pages'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"printer" | inurl:"print" intitle:"status"'
+
+  - pattern: 'site:{domain} intitle:"Router" | intitle:"Gateway" inurl:"login"'
+    description: 'Find router and gateway login pages'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"Router" | intitle:"Gateway" inurl:"login"'
+
+  - pattern: 'inurl:":8080" intitle:"Home Assistant"'
+    description: 'Find Home Assistant IoT hubs'
+    params: []
+    examples:
+      - 'inurl:":8080" intitle:"Home Assistant"'

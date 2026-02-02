@@ -1,0 +1,84 @@
+category: cloud_buckets
+description: Find exposed cloud storage buckets (AWS S3, Azure, GCP)
+
+filters:
+  - id: "provider"
+    label: "Provider"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "s3.amazonaws.com", label: "AWS S3" }
+      - { value: "blob.core.windows.net", label: "Azure Blob" }
+      - { value: "googleapis.com", label: "Google Cloud" }
+      - { value: "digitaloceanspaces.com", label: "DigitalOcean" }
+  - id: "content" # Assuming this was the intended structure for the second filter
+    label: "Content Type" # Assuming this was the intended structure for the second filter
+    type: "select" # Assuming this was the intended structure for the second filter
+    key: "query_contains"
+    options:
+      - { value: "bak", label: "Backups" }
+      - { value: "config", label: "Config Files" }
+      - { value: "pdf", label: "Documents" }
+      - { value: "jpg", label: "Images" }
+
+templates:
+  - pattern: 'site:s3.amazonaws.com intext:"{keyword}"'
+    description: 'Find S3 buckets with specific keyword'
+    params: [keyword]
+    examples:
+      - 'site:s3.amazonaws.com intext:"backup"'
+      - 'site:s3.amazonaws.com intext:"config"'
+
+  - pattern: 'site:s3.amazonaws.com "{company}"'
+    description: 'Find company-specific S3 buckets'
+    params: [company]
+    examples:
+      - 'site:s3.amazonaws.com "acme-corp"'
+
+  - pattern: 'site:blob.core.windows.net intext:"{keyword}"'
+    description: 'Find Azure blob storage'
+    params: [keyword]
+    examples:
+      - 'site:blob.core.windows.net intext:"backup"'
+
+  - pattern: 'site:storage.googleapis.com intext:"{keyword}"'
+    description: 'Find Google Cloud Storage buckets'
+    params: [keyword]
+    examples:
+      - 'site:storage.googleapis.com intext:"backup"'
+
+  - pattern: 'site:s3.amazonaws.com filetype:pdf'
+    description: 'Find public PDFs in S3 buckets'
+    params: []
+    examples:
+      - 'site:s3.amazonaws.com filetype:pdf'
+
+  - pattern: 'site:s3.amazonaws.com filetype:xls OR filetype:xlsx'
+    description: 'Find Excel files in S3 buckets'
+    params: []
+    examples:
+      - 'site:s3.amazonaws.com filetype:xls OR filetype:xlsx'
+
+  - pattern: 'site:s3.amazonaws.com intext:"password"'
+    description: 'Find files containing passwords in S3'
+    params: []
+    examples:
+      - 'site:s3.amazonaws.com intext:"password"'
+
+  - pattern: 'site:s3.amazonaws.com ext:sql'
+    description: 'Find SQL dumps in S3 buckets'
+    params: []
+    examples:
+      - 'site:s3.amazonaws.com ext:sql'
+
+  - pattern: 'site:digitaloceanspaces.com intext:"{keyword}"'
+    description: 'Find DigitalOcean Spaces'
+    params: [keyword]
+    examples:
+      - 'site:digitaloceanspaces.com intext:"backup"'
+
+  - pattern: 'inurl:amazonaws.com intext:"Bucket" intext:"{domain}"'
+    description: 'Find S3 buckets for specific domain'
+    params: [domain]
+    examples:
+      - 'inurl:amazonaws.com intext:"Bucket" intext:"example.com"'

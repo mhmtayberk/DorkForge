@@ -1,0 +1,63 @@
+category: open_directories
+description: Find open directories and exposed file listings
+
+templates:
+  - pattern: 'site:{domain} intitle:"index of"'
+    description: 'Find directory listings'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of"'
+
+  - pattern: 'site:{domain} intitle:"index of" intext:"parent directory"'
+    description: 'Find Apache-style directory listings'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" intext:"parent directory"'
+
+  - pattern: 'site:{domain} intitle:"index of" intext:backup'
+    description: 'Find backup directories'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" intext:backup'
+
+  - pattern: 'site:{domain} intitle:"index of" inurl:backup'
+    description: 'Find backup folders in URL'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" inurl:backup'
+
+  - pattern: 'site:{domain} intitle:"index of" intext:upload'
+    description: 'Find upload directories'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" intext:upload'
+
+  - pattern: 'site:{domain} intitle:"index of" "последним изменения"'
+    description: 'Find directories (multilingual detection)'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" "последним изменения"'
+
+  - pattern: 'site:{domain} intitle:"index of" intext:".git"'
+    description: 'Find exposed .git directories'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" intext:".git"'
+
+  - pattern: 'site:{domain} intitle:"index of" intext:"downloads"'
+    description: 'Find download directories'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" intext:"downloads"'
+
+  - pattern: 'site:{domain} intitle:"index of" ext:zip OR ext:rar'
+    description: 'Find directories with archives'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" ext:zip OR ext:rar'
+
+  - pattern: 'site:{domain} intitle:"index of" intext:"admin"'
+    description: 'Find admin directories'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"index of" intext:"admin"'

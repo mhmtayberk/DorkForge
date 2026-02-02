@@ -1,0 +1,3029 @@
+{
+  "categories": [
+    {
+      "category": "saas_leaks",
+      "description": "Find exposed data on 3rd party SaaS platforms (Trello, Notion, Jira, etc.)",
+      "filters": [
+        {
+          "id": "platform",
+          "label": "Platform",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "trello.com",
+              "label": "Trello"
+            },
+            {
+              "value": "notion.so",
+              "label": "Notion"
+            },
+            {
+              "value": "atlassian.net",
+              "label": "Jira/Confluence"
+            },
+            {
+              "value": "docs.google.com",
+              "label": "Google Drive"
+            },
+            {
+              "value": "miro.com",
+              "label": "Miro"
+            },
+            {
+              "value": "figma.com",
+              "label": "Figma"
+            },
+            {
+              "value": "airtable.com",
+              "label": "Airtable"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "site:trello.com \"password\" OR \"credentials\" OR \"account\" OR \"postgres\"",
+          "description": "Find public Trello cards with sensitive keywords",
+          "params": [],
+          "examples": [
+            "site:trello.com \"password\" OR \"credentials\" OR \"account\" OR \"postgres\""
+          ]
+        },
+        {
+          "pattern": "site:notion.so \"internal\" OR \"budget\" OR \"strategy\" -inurl:template",
+          "description": "Find internal Notion pages exposed publicly",
+          "params": [],
+          "examples": [
+            "site:notion.so \"internal\" OR \"budget\" OR \"strategy\" -inurl:template"
+          ]
+        },
+        {
+          "pattern": "site:atlassian.net inurl:dashboard \"Activity Stream\"",
+          "description": "Find exposed Jira dashboards",
+          "params": [],
+          "examples": [
+            "site:atlassian.net inurl:dashboard \"Activity Stream\""
+          ]
+        },
+        {
+          "pattern": "site:miro.com inurl:app/board",
+          "description": "Find publicly accessible Miro whiteboards",
+          "params": [],
+          "examples": [
+            "site:miro.com inurl:app/board"
+          ]
+        },
+        {
+          "pattern": "site:figma.com/file intext:\"Wireframe\" OR intext:\"Prototype\"",
+          "description": "Find exposed Figma design files",
+          "params": [],
+          "examples": [
+            "site:figma.com/file intext:\"Wireframe\" OR intext:\"Prototype\""
+          ]
+        },
+        {
+          "pattern": "site:airtable.com/shRE",
+          "description": "Find exposed Airtable shared views (Shared Link)",
+          "params": [],
+          "examples": [
+            "site:airtable.com/shRE"
+          ]
+        },
+        {
+          "pattern": "site:docs.google.com/spreadsheets \"password\" OR \"credential\" \"anyone with the link\"",
+          "description": "Find public Google Sheets with sensitive info",
+          "params": [],
+          "examples": [
+            "site:docs.google.com/spreadsheets \"password\" OR \"credential\" \"anyone with the link\""
+          ]
+        },
+        {
+          "pattern": "site:coda.io/d intext:\"password\" OR intext:\"key\"",
+          "description": "Find sensitive Coda documents",
+          "params": [],
+          "examples": [
+            "site:coda.io/d intext:\"password\" OR intext:\"key\""
+          ]
+        },
+        {
+          "pattern": "site:pastebin.com \"password\" OR \"api_key\" \"{domain}\"",
+          "description": "Find Pastebin leaks for target domain",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:pastebin.com \"password\" OR \"api_key\" \"example.com\""
+          ]
+        },
+        {
+          "pattern": "site:repl.it intext:\"password\" OR intext:\"token\"",
+          "description": "Find secrets in public Replit projects",
+          "params": [],
+          "examples": [
+            "site:repl.it intext:\"password\" OR intext:\"token\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "devops",
+      "description": "Find exposed DevOps tools, CI/CD pipelines, and infrastructure dashboards",
+      "filters": [
+        {
+          "id": "tool",
+          "label": "Tool",
+          "type": "multi-select",
+          "key": "dork_contains",
+          "options": [
+            {
+              "value": "kubernetes",
+              "label": "Kubernetes"
+            },
+            {
+              "value": "jenkins",
+              "label": "Jenkins"
+            },
+            {
+              "value": "docker",
+              "label": "Docker"
+            },
+            {
+              "value": "gitlab",
+              "label": "GitLab"
+            },
+            {
+              "value": "grafana",
+              "label": "Grafana"
+            },
+            {
+              "value": "kibana",
+              "label": "Kibana"
+            },
+            {
+              "value": "sonarqube",
+              "label": "SonarQube"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "intitle:\"Kubernetes Dashboard\" inurl:\"#/pod\"",
+          "description": "Find exposed Kubernetes Dashboards (Critical)",
+          "params": [],
+          "examples": [
+            "intitle:\"Kubernetes Dashboard\" inurl:\"#/pod\""
+          ]
+        },
+        {
+          "pattern": "inurl:\"/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/\"",
+          "description": "Find exposed K8s API Proxy",
+          "params": [],
+          "examples": [
+            "inurl:\"/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Jenkins\" inurl:\"script\" intitle:\"Script Console\"",
+          "description": "Find Jenkins Script Console (RCE risk)",
+          "params": [],
+          "examples": [
+            "intitle:\"Jenkins\" inurl:\"script\" intitle:\"Script Console\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Dashboard [Jenkins]\"",
+          "description": "Find public Jenkins Dashboards",
+          "params": [],
+          "examples": [
+            "intitle:\"Dashboard [Jenkins]\""
+          ]
+        },
+        {
+          "pattern": "inurl:\"/v2/_catalog\"",
+          "description": "Find exposed Docker Registry v2 API",
+          "params": [],
+          "examples": [
+            "inurl:\"/v2/_catalog\""
+          ]
+        },
+        {
+          "pattern": "site:gitlab.com intext:\"CI_COMMIT_TOKEN\"",
+          "description": "Find leaked GitLab CI tokens",
+          "params": [],
+          "examples": [
+            "site:gitlab.com intext:\"CI_COMMIT_TOKEN\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Grafana\" inurl:\"/dashboard\"",
+          "description": "Find publicly accessible Grafana dashboards",
+          "params": [],
+          "examples": [
+            "intitle:\"Grafana\" inurl:\"/dashboard\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Kibana\" inurl:\"/app/kibana\"",
+          "description": "Find unprotected Kibana instances",
+          "params": [],
+          "examples": [
+            "intitle:\"Kibana\" inurl:\"/app/kibana\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"SonarQube\" inurl:\"/dashboard\" \"Quality Gate\"",
+          "description": "Find exposed SonarQube projects",
+          "params": [],
+          "examples": [
+            "intitle:\"SonarQube\" inurl:\"/dashboard\" \"Quality Gate\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Traefik Dashboard\" inurl:\"/dashboard/\"",
+          "description": "Find Traefik Reverse Proxy Dashboard",
+          "params": [],
+          "examples": [
+            "intitle:\"Traefik Dashboard\" inurl:\"/dashboard/\""
+          ]
+        },
+        {
+          "pattern": "inurl:\"/prometheus/graph\"",
+          "description": "Find exposed Prometheus metrics",
+          "params": [],
+          "examples": [
+            "inurl:\"/prometheus/graph\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "database_files",
+      "description": "Find database files and dumps",
+      "templates": [
+        {
+          "pattern": "site:{domain} ext:sql",
+          "description": "Find SQL files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:sql"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:db",
+          "description": "Find database files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:db"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:sqlite OR ext:sqlite3",
+          "description": "Find SQLite database files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:sqlite OR ext:sqlite3"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:mdb",
+          "description": "Find Microsoft Access database files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:mdb"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:sql intext:\"INSERT INTO\"",
+          "description": "Find SQL dumps with data",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:sql intext:\"INSERT INTO\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:dbf",
+          "description": "Find dBASE database files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:dbf"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"phpMyAdmin\" intext:\"running on\"",
+          "description": "Find phpMyAdmin installations",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"phpMyAdmin\" intext:\"running on\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:adminer",
+          "description": "Find Adminer database tool",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:adminer"
+          ]
+        },
+        {
+          "pattern": "site:{domain} (ext:sql OR ext:db OR ext:dbf OR ext:mdb OR ext:sqlite OR ext:sqlite3 OR ext:dat OR ext:log OR ext:tar)",
+          "description": "Mass Database Hunt (Search for 9+ database formats)",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com (ext:sql OR ext:db OR ext:dbf OR ext:mdb OR ext:sqlite OR ext:sqlite3 OR ext:dat OR ext:log OR ext:tar)"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "open_directories",
+      "description": "Find open directories and exposed file listings",
+      "templates": [
+        {
+          "pattern": "site:{domain} intitle:\"index of\"",
+          "description": "Find directory listings",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" intext:\"parent directory\"",
+          "description": "Find Apache-style directory listings",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" intext:\"parent directory\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" intext:backup",
+          "description": "Find backup directories",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" intext:backup"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" inurl:backup",
+          "description": "Find backup folders in URL",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" inurl:backup"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" intext:upload",
+          "description": "Find upload directories",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" intext:upload"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" \"\u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u043c \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f\"",
+          "description": "Find directories (multilingual detection)",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" \"\u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u043c \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" intext:\".git\"",
+          "description": "Find exposed .git directories",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" intext:\".git\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" intext:\"downloads\"",
+          "description": "Find download directories",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" intext:\"downloads\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" ext:zip OR ext:rar",
+          "description": "Find directories with archives",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" ext:zip OR ext:rar"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" intext:\"admin\"",
+          "description": "Find admin directories",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" intext:\"admin\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "modern_frameworks",
+      "description": "Find misconfigurations in modern web frameworks (Spring, Laravel, Django, etc.)",
+      "filters": [
+        {
+          "id": "framework",
+          "label": "Framework",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "actuator",
+              "label": "Spring Boot"
+            },
+            {
+              "value": "laravel",
+              "label": "Laravel"
+            },
+            {
+              "value": "django",
+              "label": "Django"
+            },
+            {
+              "value": "rails",
+              "label": "Ruby on Rails"
+            },
+            {
+              "value": "graphql",
+              "label": "GraphQL"
+            },
+            {
+              "value": "asp.net",
+              "label": "ASP.NET"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "inurl:\"/actuator/heapdump\"",
+          "description": "Find Spring Boot Actuator Heapdump (Critical sensitive data)",
+          "params": [],
+          "examples": [
+            "inurl:\"/actuator/heapdump\""
+          ]
+        },
+        {
+          "pattern": "inurl:\"/actuator/env\"",
+          "description": "Find Spring Boot Actuator Environment Variables",
+          "params": [],
+          "examples": [
+            "inurl:\"/actuator/env\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Ignition\" intext:\"Laravel\" intext:\"Stack trace\"",
+          "description": "Find Laravel Ignition Debug Page (Code Execution)",
+          "params": [],
+          "examples": [
+            "intitle:\"Ignition\" intext:\"Laravel\" intext:\"Stack trace\""
+          ]
+        },
+        {
+          "pattern": "intext:\"You are seeing this page because DEBUG = True\" intext:\"Django\"",
+          "description": "Find Django Debug Mode enabled",
+          "params": [],
+          "examples": [
+            "intext:\"You are seeing this page because DEBUG = True\" intext:\"Django\""
+          ]
+        },
+        {
+          "pattern": "filetype:yml \"database.yml\" intext:\"adapter: postgresql\" password",
+          "description": "Find Rails database configuration leaks",
+          "params": [],
+          "examples": [
+            "filetype:yml \"database.yml\" intext:\"adapter: postgresql\" password"
+          ]
+        },
+        {
+          "pattern": "inurl:\"/graphql\" intitle:\"GraphiQL\"",
+          "description": "Find exposed GraphiQL Explorer (Introspection)",
+          "params": [],
+          "examples": [
+            "inurl:\"/graphql\" intitle:\"GraphiQL\""
+          ]
+        },
+        {
+          "pattern": "inurl:\"trace.axd\" \"Application Trace\"",
+          "description": "Find ASP.NET Application Trace",
+          "params": [],
+          "examples": [
+            "inurl:\"trace.axd\" \"Application Trace\""
+          ]
+        },
+        {
+          "pattern": "filetype:env \"APP_NAME=Laravel\"",
+          "description": "Find exposed Laravel .env files",
+          "params": [],
+          "examples": [
+            "filetype:env \"APP_NAME=Laravel\""
+          ]
+        },
+        {
+          "pattern": "inurl:\"_wpeprivate\" OR inurl:\"_wpeadmin\"",
+          "description": "Find WP Engine Private Staging Sites",
+          "params": [],
+          "examples": [
+            "inurl:\"_wpeprivate\" OR inurl:\"_wpeadmin\""
+          ]
+        },
+        {
+          "pattern": "site:npm.runkit.com \"token\" OR \"key\"",
+          "description": "Find leaked secrets in RunKit notebooks",
+          "params": [],
+          "examples": [
+            "site:npm.runkit.com \"token\" OR \"key\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "social_media_profiles",
+      "name": "Social Media Profiles",
+      "description": "OSINT: Discover employee profiles, company social media accounts, and online presence",
+      "version": "1.0",
+      "author": "DorkForge",
+      "tags": [
+        "osint",
+        "social-media",
+        "reconnaissance",
+        "employees",
+        "linkedin",
+        "github",
+        "leaked-data",
+        "pdf",
+        "confidential"
+      ],
+      "filters": [
+        {
+          "id": "platform",
+          "label": "Platform",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "linkedin.com",
+              "label": "LinkedIn"
+            },
+            {
+              "value": "twitter.com",
+              "label": "Twitter/X"
+            },
+            {
+              "value": "facebook.com",
+              "label": "Facebook"
+            },
+            {
+              "value": "instagram.com",
+              "label": "Instagram"
+            },
+            {
+              "value": "github.com",
+              "label": "GitHub"
+            },
+            {
+              "value": "reddit.com",
+              "label": "Reddit"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Profile Type",
+          "type": "select",
+          "key": "description_contains",
+          "options": [
+            {
+              "value": "profile",
+              "label": "User Profile"
+            },
+            {
+              "value": "company",
+              "label": "Company Page"
+            },
+            {
+              "value": "password",
+              "label": "Leaked Credentials"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "site:linkedin.com \"{domain_name}\" employees",
+          "description": "LinkedIn employee profiles",
+          "operators": [
+            "site"
+          ],
+          "note": "Replace {domain_name} with company name (e.g., 'Acme Corp')"
+        },
+        {
+          "pattern": "site:twitter.com | site:x.com \"{domain_name}\"",
+          "description": "Twitter/X company profiles",
+          "operators": [
+            "site"
+          ],
+          "note": "Search for company mentions on Twitter/X"
+        },
+        {
+          "pattern": "site:github.com \"{domain_name}\" | \"@{domain}\"",
+          "description": "GitHub organization and repositories",
+          "operators": [
+            "site"
+          ],
+          "note": "Find GitHub repos and contributors"
+        },
+        {
+          "pattern": "site:facebook.com \"{domain_name}\"",
+          "description": "Facebook pages and mentions",
+          "operators": [
+            "site"
+          ]
+        },
+        {
+          "pattern": "site:instagram.com \"{domain_name}\"",
+          "description": "Instagram profiles and mentions",
+          "operators": [
+            "site"
+          ]
+        },
+        {
+          "pattern": "site:reddit.com \"{domain_name}\"",
+          "description": "Reddit discussions about the target",
+          "operators": [
+            "site"
+          ]
+        },
+        {
+          "pattern": "site:linkedin.com \"at {domain_name}\"",
+          "description": "Find employees via 'at Company'",
+          "operators": [
+            "site"
+          ]
+        },
+        {
+          "pattern": "site:linkedin.com inurl:company \"{domain_name}\"",
+          "description": "LinkedIn Company Page",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:glassdoor.com \"{domain_name}\"",
+          "description": "Glassdoor reviews and interviews",
+          "operators": [
+            "site"
+          ]
+        },
+        {
+          "pattern": "site:xing.com \"{domain_name}\"",
+          "description": "XING profiles ( DACH region)",
+          "operators": [
+            "site"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "error_messages",
+      "description": "Find error messages and stack traces that may reveal information",
+      "templates": [
+        {
+          "pattern": "site:{domain} intext:\"Warning: mysql_connect()\"",
+          "description": "Find MySQL connection errors",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"Warning: mysql_connect()\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"Fatal error\" intext:\"Call to undefined function\"",
+          "description": "Find PHP fatal errors",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"Fatal error\" intext:\"Call to undefined function\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"SQL syntax\" intext:\"mysql_fetch\"",
+          "description": "Find SQL syntax errors",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"SQL syntax\" intext:\"mysql_fetch\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"500 Internal Server Error\"",
+          "description": "Find 500 error pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"500 Internal Server Error\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"Stack trace:\" intext:\"error\"",
+          "description": "Find stack traces",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"Stack trace:\" intext:\"error\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"A PHP Error was encountered\"",
+          "description": "Find PHP framework errors (CodeIgniter)",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"A PHP Error was encountered\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"Microsoft OLE DB Provider for SQL Server\"",
+          "description": "Find ASP.NET database errors",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"Microsoft OLE DB Provider for SQL Server\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"Syntax error in query expression\"",
+          "description": "Find Access database errors",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"Syntax error in query expression\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"java.lang.NullPointerException\"",
+          "description": "Find Java exceptions",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"java.lang.NullPointerException\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"Traceback (most recent call last)\"",
+          "description": "Find Python tracebacks",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"Traceback (most recent call last)\""
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Log Files",
+      "description": "Discover exposed log files (Apache, Nginx, application logs, error logs)",
+      "version": "1.0",
+      "author": "DorkForge",
+      "tags": [
+        "information-disclosure",
+        "logs",
+        "debugging",
+        "sensitive-data"
+      ],
+      "templates": [
+        {
+          "pattern": "site:{domain} ext:log",
+          "description": "Find log files by extension",
+          "operators": [
+            "site",
+            "ext"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/logs/\" | inurl:\"/log/\"",
+          "description": "Find log directories",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:log \"password\" | \"username\"",
+          "description": "Log files containing credentials",
+          "operators": [
+            "site",
+            "filetype"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"error\" ext:log",
+          "description": "Error logs",
+          "operators": [
+            "site",
+            "intext",
+            "ext"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" inurl:logs",
+          "description": "Directory listing of log folders",
+          "operators": [
+            "site",
+            "intitle",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} \"access.log\" | \"error.log\" | \"debug.log\"",
+          "description": "Common log file names",
+          "operators": [
+            "site"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:/var/log/",
+          "description": "Unix/Linux log directories",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:log intext:\"stack trace\"",
+          "description": "Logs with stack traces",
+          "operators": [
+            "site",
+            "ext",
+            "intext"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:log \"exception\" | \"fatal\"",
+          "description": "Critical error logs",
+          "operators": [
+            "site",
+            "filetype"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:apache inurl:logs",
+          "description": "Apache web server logs",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:nginx inurl:logs",
+          "description": "Nginx web server logs",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:log \"database\"",
+          "description": "Database-related logs",
+          "operators": [
+            "site",
+            "ext"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "iot_cameras",
+      "description": "Find IoT devices and IP cameras",
+      "filters": [
+        {
+          "id": "vendor",
+          "label": "Camera Brand",
+          "type": "multi-select",
+          "key": "brand",
+          "options": [
+            {
+              "value": "hikvision",
+              "label": "Hikvision"
+            },
+            {
+              "value": "dahua",
+              "label": "Dahua"
+            },
+            {
+              "value": "axis",
+              "label": "Axis"
+            },
+            {
+              "value": "foscam",
+              "label": "Foscam"
+            },
+            {
+              "value": "panasonic",
+              "label": "Panasonic"
+            },
+            {
+              "value": "reolink",
+              "label": "Reolink"
+            }
+          ]
+        },
+        {
+          "id": "device_type",
+          "label": "Device Type",
+          "type": "select",
+          "key": "device",
+          "options": [
+            {
+              "value": "webcam",
+              "label": "Webcam"
+            },
+            {
+              "value": "ip camera",
+              "label": "IP Camera"
+            },
+            {
+              "value": "cctv",
+              "label": "CCTV System"
+            },
+            {
+              "value": "dvr",
+              "label": "DVR/NVR"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "inurl:\"/view/view.shtml\"",
+          "description": "Find network cameras (generic)",
+          "params": [],
+          "examples": [
+            "inurl:\"/view/view.shtml\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Live View / - AXIS\" | inurl:view/view.shtml",
+          "description": "Find AXIS IP cameras",
+          "params": [],
+          "examples": [
+            "intitle:\"Live View / - AXIS\" | inurl:view/view.shtml"
+          ]
+        },
+        {
+          "pattern": "intitle:\"WEB VIEWER FOR PANASONIC NETWORK CAMERA\"",
+          "description": "Find Panasonic network cameras",
+          "params": [],
+          "examples": [
+            "intitle:\"WEB VIEWER FOR PANASONIC NETWORK CAMERA\""
+          ]
+        },
+        {
+          "pattern": "inurl:\"/cgi-bin/guestimage.html\"",
+          "description": "Find Webcamxp cameras",
+          "params": [],
+          "examples": [
+            "inurl:\"/cgi-bin/guestimage.html\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Yawcam\" intext:\"Motion detection\"",
+          "description": "Find Yawcam webcam software",
+          "params": [],
+          "examples": [
+            "intitle:\"Yawcam\" intext:\"Motion detection\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/cgi-bin/videoconfiguration.cgi\"",
+          "description": "Find camera configuration interfaces",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/cgi-bin/videoconfiguration.cgi\""
+          ]
+        },
+        {
+          "pattern": "intitle:\"Network Camera\" intext:\"MOBOTIX\"",
+          "description": "Find MOBOTIX cameras",
+          "params": [],
+          "examples": [
+            "intitle:\"Network Camera\" intext:\"MOBOTIX\""
+          ]
+        },
+        {
+          "pattern": "inurl:\":8081/\" intitle:\"camera\"",
+          "description": "Find cameras on port 8081",
+          "params": [],
+          "examples": [
+            "inurl:\":8081/\" intitle:\"camera\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"printer\" | inurl:\"print\" intitle:\"status\"",
+          "description": "Find network printer status pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"printer\" | inurl:\"print\" intitle:\"status\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Router\" | intitle:\"Gateway\" inurl:\"login\"",
+          "description": "Find router and gateway login pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"Router\" | intitle:\"Gateway\" inurl:\"login\""
+          ]
+        },
+        {
+          "pattern": "inurl:\":8080\" intitle:\"Home Assistant\"",
+          "description": "Find Home Assistant IoT hubs",
+          "params": [],
+          "examples": [
+            "inurl:\":8080\" intitle:\"Home Assistant\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "authentication",
+      "description": "Find authentication and session related vulnerabilities",
+      "templates": [
+        {
+          "pattern": "site:{domain} ext:log intext:\"password\"",
+          "description": "Find log files containing passwords",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:log intext:\"password\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"SESSION_ID\" filetype:log",
+          "description": "Find session IDs in log files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"SESSION_ID\" filetype:log"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/auth\" intext:\"token\"",
+          "description": "Find authentication tokens",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/auth\" intext:\"token\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:sql intext:\"password\" | intext:\"username\"",
+          "description": "Find SQL dumps with credentials",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:sql intext:\"password\" | intext:\"username\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:json intext:\"api_key\" | intext:\"apikey\"",
+          "description": "Find API keys in JSON files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:json intext:\"api_key\" | intext:\"apikey\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:env intext:\"PASSWORD\"",
+          "description": "Find .env files with passwords",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:env intext:\"PASSWORD\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:oauth intext:\"access_token\"",
+          "description": "Find OAuth access tokens",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:oauth intext:\"access_token\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"BEGIN RSA PRIVATE KEY\"",
+          "description": "Find exposed SSH private keys",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"BEGIN RSA PRIVATE KEY\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:pem",
+          "description": "Find PEM certificate files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:pem"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:properties intext:\"password\"",
+          "description": "Find Java properties files with passwords",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:properties intext:\"password\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "cloud_buckets",
+      "description": "Find exposed cloud storage buckets (AWS S3, Azure, GCP)",
+      "filters": [
+        {
+          "id": "provider",
+          "label": "Provider",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "s3.amazonaws.com",
+              "label": "AWS S3"
+            },
+            {
+              "value": "blob.core.windows.net",
+              "label": "Azure Blob"
+            },
+            {
+              "value": "googleapis.com",
+              "label": "Google Cloud"
+            },
+            {
+              "value": "digitaloceanspaces.com",
+              "label": "DigitalOcean"
+            }
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Content Type",
+          "type": "select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "bak",
+              "label": "Backups"
+            },
+            {
+              "value": "config",
+              "label": "Config Files"
+            },
+            {
+              "value": "pdf",
+              "label": "Documents"
+            },
+            {
+              "value": "jpg",
+              "label": "Images"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "site:s3.amazonaws.com intext:\"{keyword}\"",
+          "description": "Find S3 buckets with specific keyword",
+          "params": [
+            "keyword"
+          ],
+          "examples": [
+            "site:s3.amazonaws.com intext:\"backup\"",
+            "site:s3.amazonaws.com intext:\"config\""
+          ]
+        },
+        {
+          "pattern": "site:s3.amazonaws.com \"{company}\"",
+          "description": "Find company-specific S3 buckets",
+          "params": [
+            "company"
+          ],
+          "examples": [
+            "site:s3.amazonaws.com \"acme-corp\""
+          ]
+        },
+        {
+          "pattern": "site:blob.core.windows.net intext:\"{keyword}\"",
+          "description": "Find Azure blob storage",
+          "params": [
+            "keyword"
+          ],
+          "examples": [
+            "site:blob.core.windows.net intext:\"backup\""
+          ]
+        },
+        {
+          "pattern": "site:storage.googleapis.com intext:\"{keyword}\"",
+          "description": "Find Google Cloud Storage buckets",
+          "params": [
+            "keyword"
+          ],
+          "examples": [
+            "site:storage.googleapis.com intext:\"backup\""
+          ]
+        },
+        {
+          "pattern": "site:s3.amazonaws.com filetype:pdf",
+          "description": "Find public PDFs in S3 buckets",
+          "params": [],
+          "examples": [
+            "site:s3.amazonaws.com filetype:pdf"
+          ]
+        },
+        {
+          "pattern": "site:s3.amazonaws.com filetype:xls OR filetype:xlsx",
+          "description": "Find Excel files in S3 buckets",
+          "params": [],
+          "examples": [
+            "site:s3.amazonaws.com filetype:xls OR filetype:xlsx"
+          ]
+        },
+        {
+          "pattern": "site:s3.amazonaws.com intext:\"password\"",
+          "description": "Find files containing passwords in S3",
+          "params": [],
+          "examples": [
+            "site:s3.amazonaws.com intext:\"password\""
+          ]
+        },
+        {
+          "pattern": "site:s3.amazonaws.com ext:sql",
+          "description": "Find SQL dumps in S3 buckets",
+          "params": [],
+          "examples": [
+            "site:s3.amazonaws.com ext:sql"
+          ]
+        },
+        {
+          "pattern": "site:digitaloceanspaces.com intext:\"{keyword}\"",
+          "description": "Find DigitalOcean Spaces",
+          "params": [
+            "keyword"
+          ],
+          "examples": [
+            "site:digitaloceanspaces.com intext:\"backup\""
+          ]
+        },
+        {
+          "pattern": "inurl:amazonaws.com intext:\"Bucket\" intext:\"{domain}\"",
+          "description": "Find S3 buckets for specific domain",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "inurl:amazonaws.com intext:\"Bucket\" intext:\"example.com\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "development",
+      "description": "Find development and testing resources",
+      "templates": [
+        {
+          "pattern": "site:{domain} inurl:\"/staging\" | inurl:\"/dev\" | inurl:\"/test\"",
+          "description": "Find staging and development environments",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/staging\" | inurl:\"/dev\" | inurl:\"/test\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Swagger UI\" | intitle:\"API Documentation\"",
+          "description": "Find Swagger/OpenAPI documentation",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"Swagger UI\" | intitle:\"API Documentation\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/api/v1\" | inurl:\"/api/v2\" | inurl:\"/api/docs\"",
+          "description": "Find API documentation endpoints",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/api/v1\" | inurl:\"/api/v2\" | inurl:\"/api/docs\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:git intext:\"index\"",
+          "description": "Find exposed .git directories",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:git intext:\"index\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/.env\"",
+          "description": "Find exposed .env files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/.env\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Index of /\" \"package.json\"",
+          "description": "Find exposed Node.js package.json files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"Index of /\" \"package.json\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:dockerfile | ext:dockerignore",
+          "description": "Find Docker configuration files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:dockerfile | ext:dockerignore"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"graphql\" | inurl:\"graphiql\"",
+          "description": "Find GraphQL endpoints and playgrounds",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"graphql\" | inurl:\"graphiql\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:tf intext:\"terraform\" | ext:tfvars",
+          "description": "Find Terraform configuration files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:tf intext:\"terraform\" | ext:tfvars"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/jenkins\" | intitle:\"Dashboard [Jenkins]\"",
+          "description": "Find Jenkins CI/CD dashboards",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/jenkins\" | intitle:\"Dashboard [Jenkins]\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"postman\" ext:json",
+          "description": "Find Postman collection exports",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"postman\" ext:json"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"GitLab\" | intitle:\"GitHub Enterprise\"",
+          "description": "Find self-hosted Git services",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"GitLab\" | intitle:\"GitHub Enterprise\""
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Financial Data",
+      "description": "Discover payment systems, invoices, financial reports, and billing information",
+      "version": "1.0",
+      "author": "DorkForge",
+      "tags": [
+        "payment",
+        "invoice",
+        "financial",
+        "pci",
+        "transaction",
+        "billing"
+      ],
+      "templates": [
+        {
+          "pattern": "site:{domain} filetype:xls | filetype:xlsx \"invoice\"",
+          "description": "Excel invoices",
+          "operators": [
+            "site",
+            "filetype"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/payment/\" | inurl:\"/checkout/\"",
+          "description": "Payment and checkout pages",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Payment Gateway\" | \"Stripe\" | \"PayPal\"",
+          "description": "Payment gateway pages",
+          "operators": [
+            "site",
+            "intitle"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:pdf \"invoice\" | \"bill\" | \"receipt\"",
+          "description": "PDF invoices and receipts",
+          "operators": [
+            "site",
+            "filetype"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:billing | inurl:invoice",
+          "description": "Billing and invoice pages",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} \"credit card\" filetype:xls | filetype:csv",
+          "description": "Credit card data in spreadsheets (CRITICAL)",
+          "operators": [
+            "site",
+            "filetype"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"transaction id\" | \"order number\"",
+          "description": "Transaction records",
+          "operators": [
+            "site",
+            "intext"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/cart/\" | inurl:\"/basket/\"",
+          "description": "Shopping cart pages",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:csv \"price\" | \"amount\" | \"total\"",
+          "description": "Financial CSV files",
+          "operators": [
+            "site",
+            "filetype"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Financial Report\" filetype:pdf",
+          "description": "Financial reports",
+          "operators": [
+            "site",
+            "intitle",
+            "filetype"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:subscription | inurl:billing-info",
+          "description": "Subscription and billing info pages",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} \"bank account\" | \"routing number\" filetype:xls",
+          "description": "Banking information (CRITICAL)",
+          "operators": [
+            "site",
+            "filetype"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "config_files",
+      "description": "Find configuration files",
+      "templates": [
+        {
+          "pattern": "site:{domain} ext:cfg",
+          "description": "Find .cfg configuration files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:cfg"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:ini",
+          "description": "Find .ini configuration files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:ini"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:conf",
+          "description": "Find .conf configuration files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:conf"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:xml intext:\"config\"",
+          "description": "Find XML config files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:xml intext:\"config\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:yaml OR ext:yml",
+          "description": "Find YAML configuration files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:yaml OR ext:yml"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:toml",
+          "description": "Find TOML configuration files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:toml"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:web.config",
+          "description": "Find ASP.NET web.config files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:web.config"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:wp-config.php",
+          "description": "Find WordPress config files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:wp-config.php"
+          ]
+        },
+        {
+          "pattern": "site:{domain} (ext:xml OR ext:conf OR ext:cnf OR ext:reg OR ext:inf OR ext:rdp OR ext:cfg OR ext:txt OR ext:ora OR ext:ini OR ext:yaml OR ext:yml OR ext:toml)",
+          "description": "Mass Config Hunt (Search for 12+ config formats)",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com (ext:xml OR ext:conf OR ext:cnf OR ext:reg OR ext:inf OR ext:rdp OR ext:cfg OR ext:txt OR ext:ora OR ext:ini OR ext:yaml OR ext:yml OR ext:toml)"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "database_panels",
+      "description": "Find database administration panels",
+      "templates": [
+        {
+          "pattern": "site:{domain} inurl:\"/phpmyadmin\" intitle:\"phpMyAdmin\"",
+          "description": "Find phpMyAdmin login pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/phpmyadmin\" intitle:\"phpMyAdmin\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/adminer\" | inurl:\"/adminer.php\"",
+          "description": "Find Adminer database tool",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/adminer\" | inurl:\"/adminer.php\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"phpMyAdmin\" intext:\"Welcome to phpMyAdmin\"",
+          "description": "Find phpMyAdmin welcome pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"phpMyAdmin\" intext:\"Welcome to phpMyAdmin\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"mongo-express\"",
+          "description": "Find MongoDB Express admin panels",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"mongo-express\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/pgadmin\" | intitle:\"pgAdmin\"",
+          "description": "Find PostgreSQL pgAdmin panels",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/pgadmin\" | intitle:\"pgAdmin\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/mysql\" intitle:\"MySQL\"",
+          "description": "Find MySQL admin interfaces",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/mysql\" intitle:\"MySQL\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"SQL\" inurl:\"/admin\"",
+          "description": "Find generic SQL admin panels",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"SQL\" inurl:\"/admin\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"RockMongo\"",
+          "description": "Find RockMongo admin panels",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"RockMongo\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"redis-commander\"",
+          "description": "Find Redis Commander panels",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"redis-commander\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Database\" inurl:\"/admin\" | inurl:\"/db\"",
+          "description": "Find database admin panels",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"Database\" inurl:\"/admin\" | inurl:\"/db\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "sensitive_files",
+      "description": "Find sensitive files that may contain credentials or confidential information",
+      "templates": [
+        {
+          "pattern": "site:{domain} filetype:env",
+          "description": "Find .env environment files containing configuration",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:env",
+            "site:target.org filetype:env"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:env intext:\"DB_PASSWORD\"",
+          "description": "Find .env files with database passwords",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:env intext:\"DB_PASSWORD\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:config intext:password",
+          "description": "Find config files containing passwords",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:config intext:password"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:yml intext:api_key",
+          "description": "Find YAML files with API keys",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:yml intext:api_key"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:properties intext:password",
+          "description": "Find Java properties files with passwords",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:properties intext:password"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:sql intext:\"INSERT INTO\" intext:\"password\"",
+          "description": "Find SQL dumps with password inserts",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:sql intext:\"INSERT INTO\" intext:\"password\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:log intext:password",
+          "description": "Find log files that may contain passwords",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:log intext:password"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:txt intext:\"api_key\" OR intext:\"apikey\"",
+          "description": "Find text files with API keys",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:txt intext:\"api_key\" OR intext:\"apikey\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:json intext:\"password\" OR intext:\"api_key\"",
+          "description": "Find JSON files with credentials",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:json intext:\"password\" OR intext:\"api_key\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:pem OR ext:key",
+          "description": "Find private keys and certificates",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:pem OR ext:key"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:json inurl:postman_collection",
+          "description": "Find sensitive Postman Collections",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:json inurl:postman_collection"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:ovpn",
+          "description": "Find exposed OpenVPN configuration (High Risk)",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:ovpn"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "api_endpoints",
+      "description": "Find API endpoints and documentation",
+      "filters": [
+        {
+          "id": "format",
+          "label": "API Type",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "rest",
+              "label": "REST"
+            },
+            {
+              "value": "graphql",
+              "label": "GraphQL"
+            },
+            {
+              "value": "inurl:/v",
+              "label": "Versioned (v1, v2...)"
+            },
+            {
+              "value": "filetype:json",
+              "label": "JSON/Data"
+            }
+          ]
+        },
+        {
+          "id": "documentation",
+          "label": "Documentation",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "swagger",
+              "label": "Swagger UI"
+            },
+            {
+              "value": "openapi",
+              "label": "OpenAPI Spec"
+            },
+            {
+              "value": "readme",
+              "label": "Readme / Docs"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "site:{domain} inurl:api",
+          "description": "Find API endpoints in URL",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:api"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:/v1/ OR inurl:/v2/ OR inurl:/v3/",
+          "description": "Find versioned API endpoints",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:/v1/ OR inurl:/v2/ OR inurl:/v3/"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"swagger\" OR intext:\"openapi\"",
+          "description": "Find Swagger/OpenAPI documentation",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"swagger\" OR intext:\"openapi\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:graphql",
+          "description": "Find GraphQL endpoints",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:graphql"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:/api/v1/users",
+          "description": "Find user API endpoints",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:/api/v1/users"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:json inurl:api",
+          "description": "Find JSON API responses",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:json inurl:api"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:rest OR inurl:restful",
+          "description": "Find REST API endpoints",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:rest OR inurl:restful"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"API Documentation\"",
+          "description": "Find API documentation pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"API Documentation\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "exposed_documents",
+      "description": "Find publicly exposed official documents, contracts, and confidential files",
+      "filters": [
+        {
+          "id": "doctype",
+          "label": "Document Type",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "ext:pdf",
+              "label": "PDF Document"
+            },
+            {
+              "value": "ext:docx",
+              "label": "Word Doc"
+            },
+            {
+              "value": "ext:xlsx",
+              "label": "Excel Sheet"
+            },
+            {
+              "value": "ext:pptx",
+              "label": "PowerPoint"
+            },
+            {
+              "value": "ext:txt",
+              "label": "Text File"
+            },
+            {
+              "value": "ext:csv",
+              "label": "CSV"
+            }
+          ]
+        },
+        {
+          "id": "sensitivity",
+          "label": "Sensitivity",
+          "type": "multi-select",
+          "key": "description_contains",
+          "options": [
+            {
+              "value": "Confidential",
+              "label": "Confidential"
+            },
+            {
+              "value": "Internal",
+              "label": "Internal Only"
+            },
+            {
+              "value": "Not for Distribution",
+              "label": "Not for Distribution"
+            },
+            {
+              "value": "Invoices",
+              "label": "Invoices"
+            },
+            {
+              "value": "Contracts",
+              "label": "Contracts"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "site:{domain} filetype:pdf (confidential OR \"internal use only\")",
+          "description": "Find confidential or internal PDFs",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:pdf (confidential OR \"internal use only\")"
+          ]
+        },
+        {
+          "pattern": "site:{domain} (filetype:doc OR filetype:docx) \"strict confidence\"",
+          "description": "Find Word documents marked as strictly confidential",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com (filetype:doc OR filetype:docx) \"strict confidence\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} (filetype:xls OR filetype:xlsx) \"salary\" OR \"budget\"",
+          "description": "Find Excel sheets with salary or budget info",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com (filetype:xls OR filetype:xlsx) \"salary\" OR \"budget\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:pdf \"non-disclosure agreement\" OR \"NDA\"",
+          "description": "Find exposed NDAs and legal contracts",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:pdf \"non-disclosure agreement\" OR \"NDA\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" (scanned OR invoice OR receipt)",
+          "description": "Find directories containing scanned docs or invoices",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"index of\" (scanned OR invoice OR receipt)"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:pdf \"privileged and confidential\"",
+          "description": "Find privileged legal documents",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:pdf \"privileged and confidential\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:ppt OR ext:pptx \"confidential\"",
+          "description": "Find confidential presentations",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:ppt OR ext:pptx \"confidential\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} (ext:pdf OR ext:docx OR ext:pptx OR ext:doc OR ext:xls OR ext:xlsx OR ext:csv OR ext:txt OR ext:dot OR ext:dotm OR ext:docm OR ext:odt OR ext:wps OR ext:xps OR ext:wks OR ext:ppt OR ext:pptm OR ext:sldx OR ext:one OR ext:rtf)",
+          "description": "Mass Document Hunt (Search for 20+ document types)",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com (ext:pdf OR ext:docx OR ext:pptx OR ext:doc OR ext:xls OR ext:xlsx OR ext:csv OR ext:txt OR ext:dot OR ext:dotm OR ext:docm OR ext:odt OR ext:wps OR ext:xps OR ext:wks OR ext:ppt OR ext:pptm OR ext:sldx OR ext:one OR ext:rtf)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vulnerable Plugins",
+      "description": "Discover CMS plugins, WordPress themes, and known vulnerable components",
+      "version": "1.0",
+      "author": "DorkForge",
+      "tags": [
+        "plugins",
+        "wordpress",
+        "cms",
+        "vulnerabilities",
+        "cve",
+        "themes"
+      ],
+      "templates": [
+        {
+          "pattern": "site:{domain} inurl:\"/wp-content/plugins/\"",
+          "description": "WordPress plugins directory",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} \"powered by\" \"WordPress\" | \"Joomla\" | \"Drupal\"",
+          "description": "CMS identification",
+          "operators": [
+            "site"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/plugins/\" ext:php",
+          "description": "Plugin PHP files",
+          "operators": [
+            "site",
+            "inurl",
+            "ext"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/wp-content/themes/\"",
+          "description": "WordPress themes directory",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" inurl:wp-content/plugins",
+          "description": "Directory listing of plugins",
+          "operators": [
+            "site",
+            "intitle",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/components/\" \"Joomla\"",
+          "description": "Joomla components",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:readme.txt inurl:wp-content/plugins",
+          "description": "Plugin readme files (version disclosure)",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} \"/wp-content/uploads/\" ext:php",
+          "description": "PHP files in uploads (potential backdoor)",
+          "operators": [
+            "site",
+            "ext"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/modules/\" \"Drupal\"",
+          "description": "Drupal modules",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} \"wp-includes\" | \"wp-admin\" inurl:js",
+          "description": "WordPress core file exposure",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:xmlrpc.php",
+          "description": "WordPress XML-RPC (DDoS/bruteforce vector)",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"index of\" \"/wp-json/\"",
+          "description": "WordPress REST API directory listing",
+          "operators": [
+            "site",
+            "intitle"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "login_pages",
+      "description": "Find login and authentication pages",
+      "filters": [
+        {
+          "id": "portal",
+          "label": "Portal Type",
+          "type": "multi-select",
+          "key": "description_contains",
+          "options": [
+            {
+              "value": "Admin",
+              "label": "Admin Panel"
+            },
+            {
+              "value": "Employee",
+              "label": "Employee Portal"
+            },
+            {
+              "value": "Member",
+              "label": "Member Area"
+            },
+            {
+              "value": "Webmail",
+              "label": "Webmail"
+            }
+          ]
+        },
+        {
+          "id": "tech",
+          "label": "Technology",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "wp-admin",
+              "label": "WordPress"
+            },
+            {
+              "value": "php",
+              "label": "PHP"
+            },
+            {
+              "value": "aspx",
+              "label": "ASP.NET"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "site:{domain} inurl:login",
+          "description": "Find login pages in URL",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:login"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"login\" OR intitle:\"sign in\"",
+          "description": "Find login pages by title",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"login\" OR intitle:\"sign in\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:admin",
+          "description": "Find admin panel URLs",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:admin"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"admin panel\" OR intitle:\"dashboard\"",
+          "description": "Find admin dashboards",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"admin panel\" OR intitle:\"dashboard\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:wp-admin",
+          "description": "Find WordPress admin login",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:wp-admin"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:auth OR inurl:authenticate",
+          "description": "Find authentication endpoints",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:auth OR inurl:authenticate"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"username\" intext:\"password\" inurl:login",
+          "description": "Find login forms with username/password fields",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"username\" intext:\"password\" inurl:login"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:portal inurl:login",
+          "description": "Find portal login pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:portal inurl:login"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:php inurl:login",
+          "description": "Find PHP-based login pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:php inurl:login"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:signin OR inurl:authenticate OR inurl:auth",
+          "description": "Find various authentication URLs",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:signin OR inurl:authenticate OR inurl:auth"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "server_info",
+      "description": "Find server information and log files",
+      "templates": [
+        {
+          "pattern": "site:{domain} intitle:\"phpinfo()\"",
+          "description": "Find phpinfo() pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"phpinfo()\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:log",
+          "description": "Find exposed log files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:log"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:access.log | inurl:error.log",
+          "description": "Find Apache/Nginx access and error logs",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:access.log | inurl:error.log"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Index of\" \"server-status\"",
+          "description": "Find Apache server-status pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"Index of\" \"server-status\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/health\" | inurl:\"/status\" | inurl:\"/metrics\"",
+          "description": "Find application health and metrics endpoints",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/health\" | inurl:\"/status\" | inurl:\"/metrics\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"Server: Apache\" | intext:\"Server: nginx\"",
+          "description": "Find server version information",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"Server: Apache\" | intext:\"Server: nginx\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Nginx Status\"",
+          "description": "Find Nginx status pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"Nginx Status\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/debug\" | inurl:\"/trace\"",
+          "description": "Find debug and trace pages",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:\"/debug\" | inurl:\"/trace\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:log intext:\"exception\" | intext:\"error\"",
+          "description": "Find error logs and exceptions",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:log intext:\"exception\" | intext:\"error\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Dashboard\" inurl:\"kibana\" | inurl:\"grafana\"",
+          "description": "Find monitoring dashboards",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intitle:\"Dashboard\" inurl:\"kibana\" | inurl:\"grafana\""
+          ]
+        }
+      ]
+    },
+    {
+      "category": "source_code",
+      "description": "Find exposed source code files",
+      "filters": [
+        {
+          "id": "platform",
+          "label": "Platform",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "github.com",
+              "label": "GitHub"
+            },
+            {
+              "value": "gitlab.com",
+              "label": "GitLab"
+            },
+            {
+              "value": "bitbucket.org",
+              "label": "Bitbucket"
+            }
+          ]
+        },
+        {
+          "id": "language",
+          "label": "Language",
+          "type": "multi-select",
+          "key": "query_contains",
+          "options": [
+            {
+              "value": "ext:py",
+              "label": "Python"
+            },
+            {
+              "value": "ext:js",
+              "label": "JavaScript"
+            },
+            {
+              "value": "ext:go",
+              "label": "Go"
+            },
+            {
+              "value": "ext:java",
+              "label": "Java"
+            },
+            {
+              "value": "ext:php",
+              "label": "PHP"
+            },
+            {
+              "value": "ext:rb",
+              "label": "Ruby"
+            },
+            {
+              "value": ".env",
+              "label": ".env Config"
+            },
+            {
+              "value": "config",
+              "label": "Config Files"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "site:{domain} ext:php",
+          "description": "Find PHP source files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:php"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:java",
+          "description": "Find Java source files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:java"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:py",
+          "description": "Find Python source files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:py"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:js intext:\"api\" OR intext:\"key\"",
+          "description": "Find JavaScript files with API references",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:js intext:\"api\" OR intext:\"key\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:inc",
+          "description": "Find PHP include files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:inc"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:cs OR ext:vb",
+          "description": "Find C# or VB.NET source files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:cs OR ext:vb"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:.git/config",
+          "description": "Find exposed git config files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:.git/config"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:.svn/entries",
+          "description": "Find exposed SVN repository files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:.svn/entries"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin Panels",
+      "description": "Discover administrative interfaces and control panels beyond simple login pages",
+      "version": "1.0",
+      "author": "DorkForge",
+      "tags": [
+        "admin",
+        "control-panel",
+        "dashboard",
+        "authentication",
+        "access-control"
+      ],
+      "filters": [
+        {
+          "id": "tech",
+          "label": "Technology",
+          "type": "multi-select",
+          "key": "description_contains",
+          "options": [
+            {
+              "value": "WordPress",
+              "label": "WordPress"
+            },
+            {
+              "value": "Joomla",
+              "label": "Joomla"
+            },
+            {
+              "value": "Drupal",
+              "label": "Drupal"
+            },
+            {
+              "value": "cPanel",
+              "label": "cPanel/WHM"
+            },
+            {
+              "value": "Plesk",
+              "label": "Plesk"
+            },
+            {
+              "value": "phpMyAdmin",
+              "label": "phpMyAdmin"
+            },
+            {
+              "value": "Webmin",
+              "label": "Webmin"
+            }
+          ]
+        },
+        {
+          "id": "interface",
+          "label": "Interface Type",
+          "type": "multi-select",
+          "key": "description_contains",
+          "options": [
+            {
+              "value": "Dashboard",
+              "label": "Dashboard"
+            },
+            {
+              "value": "Login",
+              "label": "Login Page"
+            },
+            {
+              "value": "Control Panel",
+              "label": "Control Panel"
+            },
+            {
+              "value": "Console",
+              "label": "Console"
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "pattern": "site:{domain} inurl:admin | inurl:administrator",
+          "description": "Generic admin URLs",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Admin Panel\" | intitle:\"Control Panel\"",
+          "description": "Admin panel titles",
+          "operators": [
+            "site",
+            "intitle"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:wp-admin | inurl:wp-login",
+          "description": "WordPress admin area",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:cpanel | inurl:whm",
+          "description": "cPanel/WHM hosting controls",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:plesk | inurl:plesk-stat",
+          "description": "Plesk control panel",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Dashboard\" inurl:admin",
+          "description": "Admin dashboards",
+          "operators": [
+            "site",
+            "intitle",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/admin/\" | inurl:\"/administrator/\"",
+          "description": "Admin directory paths",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:manager | inurl:management",
+          "description": "Management interfaces",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"phpMyAdmin\" inurl:phpmyadmin",
+          "description": "phpMyAdmin database admin",
+          "operators": [
+            "site",
+            "intitle",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/backend/\" | inurl:\"/backoffice/\"",
+          "description": "Backend/backoffice interfaces",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:webmin | inurl:usermin",
+          "description": "Webmin/Usermin control panels",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intitle:\"Admin Console\" | intitle:\"Management Console\"",
+          "description": "Admin/Management consoles",
+          "operators": [
+            "site",
+            "intitle"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:\"/controlpanel/\" | inurl:\"/cp/\"",
+          "description": "Control panel shortcuts",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:joomla inurl:administrator",
+          "description": "Joomla admin panel",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:drupal inurl:user/login",
+          "description": "Drupal admin login",
+          "operators": [
+            "site",
+            "inurl"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "backup_files",
+      "description": "Find backup files and archives",
+      "templates": [
+        {
+          "pattern": "site:{domain} ext:bak",
+          "description": "Find .bak backup files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:bak"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:sql",
+          "description": "Find SQL database dumps",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:sql"
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:zip OR ext:tar OR ext:gz",
+          "description": "Find compressed archives",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:zip OR ext:tar OR ext:gz"
+          ]
+        },
+        {
+          "pattern": "site:{domain} inurl:backup",
+          "description": "Find backup URLs",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com inurl:backup"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:old OR filetype:backup",
+          "description": "Find old/backup files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:old OR filetype:backup"
+          ]
+        },
+        {
+          "pattern": "site:{domain} intext:\"backup\" ext:zip",
+          "description": "Find backup ZIP files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com intext:\"backup\" ext:zip"
+          ]
+        },
+        {
+          "pattern": "site:{domain} filetype:tar.gz intext:\"backup\"",
+          "description": "Find tar.gz backups",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com filetype:tar.gz intext:\"backup\""
+          ]
+        },
+        {
+          "pattern": "site:{domain} ext:dump",
+          "description": "Find database dump files",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com ext:dump"
+          ]
+        },
+        {
+          "pattern": "site:{domain} (ext:bak OR ext:old OR ext:backup OR ext:zip OR ext:tar OR ext:gz OR ext:rar OR ext:7z OR ext:iso OR ext:tgz)",
+          "description": "Mass Backup Hunt (Search for 10+ backup formats)",
+          "params": [
+            "domain"
+          ],
+          "examples": [
+            "site:example.com (ext:bak OR ext:old OR ext:backup OR ext:zip OR ext:tar OR ext:gz OR ext:rar OR ext:7z OR ext:iso OR ext:tgz)"
+          ]
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "version": "1.0",
+    "count": 24
+  }
+}

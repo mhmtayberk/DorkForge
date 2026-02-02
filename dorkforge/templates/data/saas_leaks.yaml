@@ -1,0 +1,77 @@
+category: saas_leaks
+description: Find exposed data on 3rd party SaaS platforms (Trello, Notion, Jira, etc.)
+
+filters:
+  - id: "platform"
+    label: "Platform"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "trello.com", label: "Trello" }
+      - { value: "notion.so", label: "Notion" }
+      - { value: "atlassian.net", label: "Jira/Confluence" }
+      - { value: "docs.google.com", label: "Google Drive" }
+      - { value: "miro.com", label: "Miro" }
+      - { value: "figma.com", label: "Figma" }
+      - { value: "airtable.com", label: "Airtable" }
+
+templates:
+  - pattern: 'site:trello.com "password" OR "credentials" OR "account" OR "postgres"'
+    description: 'Find public Trello cards with sensitive keywords'
+    params: []
+    examples:
+      - 'site:trello.com "password" OR "credentials" OR "account" OR "postgres"'
+
+  - pattern: 'site:notion.so "internal" OR "budget" OR "strategy" -inurl:template'
+    description: 'Find internal Notion pages exposed publicly'
+    params: []
+    examples:
+      - 'site:notion.so "internal" OR "budget" OR "strategy" -inurl:template'
+
+  - pattern: 'site:atlassian.net inurl:dashboard "Activity Stream"'
+    description: 'Find exposed Jira dashboards'
+    params: []
+    examples:
+      - 'site:atlassian.net inurl:dashboard "Activity Stream"'
+
+  - pattern: 'site:miro.com inurl:app/board'
+    description: 'Find publicly accessible Miro whiteboards'
+    params: []
+    examples:
+      - 'site:miro.com inurl:app/board'
+
+  - pattern: 'site:figma.com/file intext:"Wireframe" OR intext:"Prototype"'
+    description: 'Find exposed Figma design files'
+    params: []
+    examples:
+      - 'site:figma.com/file intext:"Wireframe" OR intext:"Prototype"'
+
+  - pattern: 'site:airtable.com/shRE'
+    description: 'Find exposed Airtable shared views (Shared Link)'
+    params: []
+    examples:
+      - 'site:airtable.com/shRE'
+
+  - pattern: 'site:docs.google.com/spreadsheets "password" OR "credential" "anyone with the link"'
+    description: 'Find public Google Sheets with sensitive info'
+    params: []
+    examples:
+      - 'site:docs.google.com/spreadsheets "password" OR "credential" "anyone with the link"'
+
+  - pattern: 'site:coda.io/d intext:"password" OR intext:"key"'
+    description: 'Find sensitive Coda documents'
+    params: []
+    examples:
+      - 'site:coda.io/d intext:"password" OR intext:"key"'
+
+  - pattern: 'site:pastebin.com "password" OR "api_key" "{domain}"'
+    description: 'Find Pastebin leaks for target domain'
+    params: [domain]
+    examples:
+      - 'site:pastebin.com "password" OR "api_key" "example.com"'
+
+  - pattern: 'site:repl.it intext:"password" OR intext:"token"'
+    description: 'Find secrets in public Replit projects'
+    params: []
+    examples:
+      - 'site:repl.it intext:"password" OR intext:"token"'

@@ -1,0 +1,631 @@
+/**
+ * Dork Trainer - Dark Claymorphism Edition
+ * Soft 3D with dark theme, neon accents
+ */
+
+/* Dark Claymorphism Colors */
+:root {
+    --clay-dark-bg: #0F172A;
+    --clay-dark-card: #1E293B;
+    --clay-dark-card-light: #334155;
+    --clay-primary: #8B5CF6;
+    --clay-primary-light: #A78BFA;
+    --clay-success: #10B981;
+    --clay-warning: #F59E0B;
+    --clay-error: #EF4444;
+    --clay-text: #E2E8F0;
+    --clay-text-dim: #94A3B8;
+}
+
+.trainer-section {
+    min-height: 600px;
+}
+
+/* Main Trainer Card - Dark Soft 3D */
+.trainer-card {
+    background: linear-gradient(135deg, var(--clay-dark-card) 0%, #1a2332 100%);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(139, 92, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 3px solid rgba(139, 92, 246, 0.15);
+    max-width: 100%;
+    /* Full width to match other tabs */
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.trainer-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(139, 92, 246, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Header */
+.trainer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.level-badge {
+    background: linear-gradient(135deg, var(--clay-primary) 0%, var(--clay-primary-light) 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 16px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    box-shadow:
+        0 4px 16px rgba(139, 92, 246, 0.4),
+        0 0 20px rgba(139, 92, 246, 0.2),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+    border: 3px solid rgba(167, 139, 250, 0.5);
+}
+
+.level-indicator {
+    color: var(--clay-text-dim);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Progress Bar - Dark Neon */
+.progress-container {
+    margin-bottom: 2rem;
+}
+
+.progress-track {
+    background: rgba(255, 255, 255, 0.05);
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--clay-success);
+    background-image: linear-gradient(45deg,
+            rgba(255, 255, 255, 0.15) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.15) 75%,
+            transparent 75%,
+            transparent);
+    background-size: 1rem 1rem;
+    border-radius: 6px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    animation: progress-stripe 1s linear infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: linear-gradient(45deg,
+            rgba(255, 255, 255, 0.15) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.15) 75%,
+            transparent 75%,
+            transparent);
+    background-size: 1rem 1rem;
+    animation: progress-stripe 1s linear infinite;
+}
+
+@keyframes progress-stripe {
+    0% {
+        background-position: 1rem 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+
+}
+
+.progress-text {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--clay-text);
+    font-weight: 600;
+}
+
+/* Learn Section - Dark Soft Card */
+.learn-section {
+    background: linear-gradient(135deg, #1a2541 0%, #253047 100%);
+    padding: 1.75rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    border: 3px solid rgba(139, 92, 246, 0.25);
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(139, 92, 246, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.learn-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.learn-icon {
+    width: 28px;
+    height: 28px;
+    color: var(--clay-primary-light);
+    stroke-width: 2.5px;
+    filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.5));
+}
+
+.learn-header h3 {
+    color: var(--clay-primary-light);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+}
+
+.explanation {
+    color: var(--clay-text);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.example-box {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    border: 3px solid rgba(139, 92, 246, 0.2);
+    box-shadow:
+        inset 0 2px 8px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(139, 92, 246, 0.1);
+}
+
+.example-label {
+    color: var(--clay-primary-light);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.example-code {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(30, 41, 59, 0.8);
+    border-radius: 10px;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.95rem;
+    color: #A78BFA;
+    border: 2px solid rgba(139, 92, 246, 0.15);
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.3);
+}
+
+/* Challenge Section - Dark Orange Card */
+.challenge-section {
+    background: linear-gradient(135deg, #2d1f1a 0%, #3a2820 100%);
+    padding: 1.75rem;
+    border-radius: 20px;
+    border: 3px solid rgba(245, 158, 11, 0.25);
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(245, 158, 11, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.challenge-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.challenge-icon {
+    width: 28px;
+    height: 28px;
+    color: #FBBF24;
+    stroke-width: 2.5px;
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));
+}
+
+.challenge-header h3 {
+    color: #FBBF24;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+.mission-text {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 1.25rem;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--clay-text);
+    margin-bottom: 1.5rem;
+    border: 3px solid rgba(245, 158, 11, 0.2);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Answer Input - Dark Chunky */
+.answer-area {
+    margin-top: 1.5rem;
+}
+
+.trainer-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1.05rem;
+    border-radius: 16px;
+    border: 3px solid rgba(139, 92, 246, 0.3);
+    background: rgba(15, 23, 42, 0.8);
+    color: var(--clay-text);
+    font-weight: 500;
+    box-shadow:
+        inset 0 2px 8px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(139, 92, 246, 0.1);
+    transition: all 0.2s ease-out;
+    margin-bottom: 1.25rem;
+}
+
+.trainer-input:focus {
+    outline: none;
+    border-color: var(--clay-primary);
+    box-shadow:
+        0 0 0 4px rgba(139, 92, 246, 0.2),
+        0 0 30px rgba(139, 92, 246, 0.4),
+        inset 0 2px 8px rgba(0, 0, 0, 0.5);
+    transform: translateY(-1px);
+}
+
+/* Dark Claymorphism Buttons - Neon Glow */
+.action-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn-clay {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: 3px solid;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    box-shadow: 0 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-clay:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-clay svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5px;
+}
+
+.btn-clay-primary {
+    background: linear-gradient(135deg, var(--clay-success) 0%, #34D399 100%);
+    border-color: #059669;
+    color: white;
+}
+
+.btn-clay-primary:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 0px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(16, 185, 129, 0.5),
+        0 0 50px rgba(16, 185, 129, 0.3);
+}
+
+.btn-clay-hint {
+    background: linear-gradient(135deg, var(--clay-warning) 0%, #FBBF24 100%);
+    border-color: #D97706;
+    color: white;
+}
+
+.btn-clay-hint:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 0px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(245, 158, 11, 0.5),
+        0 0 50px rgba(245, 158, 11, 0.3);
+}
+
+.btn-clay-skip {
+    background: linear-gradient(135deg, #475569 0%, #64748B 100%);
+    border-color: #334155;
+    color: white;
+}
+
+.btn-clay-skip:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 0px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(100, 116, 139, 0.5);
+}
+
+.btn-clay-large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.2rem;
+}
+
+.btn-clay-secondary {
+    background: linear-gradient(135deg, var(--clay-primary) 0%, var(--clay-primary-light) 100%);
+    border-color: #7C3AED;
+    color: white;
+}
+
+.btn-clay-secondary:hover {
+    box-shadow:
+        0 6px 0px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(139, 92, 246, 0.5),
+        0 0 50px rgba(139, 92, 246, 0.3);
+}
+
+/* Feedback - Dark with Neon Glow */
+.feedback {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 16px;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    border: 3px solid;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feedback-emoji {
+    font-size: 2rem;
+    animation: bounce 0.5s ease-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.feedback-success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.15) 100%);
+    border-color: var(--clay-success);
+    color: #6EE7B7;
+    box-shadow:
+        0 0 30px rgba(16, 185, 129, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.feedback-error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(252, 165, 165, 0.15) 100%);
+    border-color: var(--clay-error);
+    color: #FCA5A5;
+    box-shadow:
+        0 0 30px rgba(239, 68, 68, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.feedback-skip {
+    background: linear-gradient(135deg, rgba(71, 85, 105, 0.2) 0%, rgba(100, 116, 139, 0.15) 100%);
+    border-color: #64748B;
+    color: #CBD5E1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.feedback code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-family: 'Monaco', 'Menlo', monospace;
+    color: #A78BFA;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+/* Hint Box - Dark Neon */
+.hint-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(251, 191, 36, 0.1) 100%);
+    border: 3px solid var(--clay-warning);
+    border-radius: 16px;
+    margin-top: 1rem;
+    box-shadow:
+        0 0 30px rgba(245, 158, 11, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.hint-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
+}
+
+.hint-text {
+    color: #FDE68A;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Stats Bar - Dark Pills */
+.stats-bar {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 1.75rem;
+    background: linear-gradient(135deg, #1a2541 0%, #253047 100%);
+    border-radius: 16px;
+    border: 3px solid rgba(139, 92, 246, 0.3);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--clay-text-dim);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--clay-primary-light);
+    margin-top: 0.25rem;
+    text-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+}
+
+/* Completion Card - Dark Celebration */
+.completion-card {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.completion-emoji {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    animation: celebration 1s ease-out;
+    filter: drop-shadow(0 0 30px rgba(167, 139, 250, 0.6));
+}
+
+@keyframes celebration {
+    0% {
+        transform: scale(0) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.completion-card h2 {
+    color: var(--clay-primary-light);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+}
+
+.completion-card h3 {
+    color: var(--clay-text);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.completion-score {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, #1a2541 0%, #253047 100%);
+    border-radius: 20px;
+    border: 3px solid rgba(139, 92, 246, 0.3);
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(139, 92, 246, 0.3);
+}
+
+.score-label {
+    font-size: 0.9rem;
+    color: var(--clay-text-dim);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.score-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--clay-primary-light);
+    margin-top: 0.5rem;
+    text-shadow: 0 0 30px rgba(167, 139, 250, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .trainer-card {
+        padding: 1.5rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-clay {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .completion-score {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Hidden Utility */
+.hidden {
+    display: none !important;
+}

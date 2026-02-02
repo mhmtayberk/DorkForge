@@ -1,0 +1,81 @@
+category: login_pages
+description: Find login and authentication pages
+filters:
+  - id: "portal"
+    label: "Portal Type"
+    type: "multi-select"
+    key: "description_contains"
+    options:
+      - { value: "Admin", label: "Admin Panel" }
+      - { value: "Employee", label: "Employee Portal" }
+      - { value: "Member", label: "Member Area" }
+      - { value: "Webmail", label: "Webmail" }
+
+  - id: "tech"
+    label: "Technology"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "wp-admin", label: "WordPress" }
+      - { value: "php", label: "PHP" }
+      - { value: "aspx", label: "ASP.NET" }
+templates:
+  - pattern: 'site:{domain} inurl:login'
+    description: 'Find login pages in URL'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:login'
+
+  - pattern: 'site:{domain} intitle:"login" OR intitle:"sign in"'
+    description: 'Find login pages by title'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"login" OR intitle:"sign in"'
+
+  - pattern: 'site:{domain} inurl:admin'
+    description: 'Find admin panel URLs'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:admin'
+
+  - pattern: 'site:{domain} intitle:"admin panel" OR intitle:"dashboard"'
+    description: 'Find admin dashboards'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"admin panel" OR intitle:"dashboard"'
+
+  - pattern: 'site:{domain} inurl:wp-admin'
+    description: 'Find WordPress admin login'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:wp-admin'
+
+  - pattern: 'site:{domain} inurl:auth OR inurl:authenticate'
+    description: 'Find authentication endpoints'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:auth OR inurl:authenticate'
+
+  - pattern: 'site:{domain} intext:"username" intext:"password" inurl:login'
+    description: 'Find login forms with username/password fields'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"username" intext:"password" inurl:login'
+
+  - pattern: 'site:{domain} inurl:portal inurl:login'
+    description: 'Find portal login pages'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:portal inurl:login'
+
+  - pattern: 'site:{domain} filetype:php inurl:login'
+    description: 'Find PHP-based login pages'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:php inurl:login'
+
+  - pattern: 'site:{domain} inurl:signin OR inurl:authenticate OR inurl:auth'
+    description: 'Find various authentication URLs'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:signin OR inurl:authenticate OR inurl:auth'

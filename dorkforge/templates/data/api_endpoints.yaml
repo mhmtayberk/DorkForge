@@ -1,0 +1,69 @@
+category: api_endpoints
+description: Find API endpoints and documentation
+filters:
+  - id: "format"
+    label: "API Type"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "rest", label: "REST" }
+      - { value: "graphql", label: "GraphQL" }
+      - { value: "inurl:/v", label: "Versioned (v1, v2...)" }
+      - { value: "filetype:json", label: "JSON/Data" }
+
+  - id: "documentation"
+    label: "Documentation"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "swagger", label: "Swagger UI" }
+      - { value: "openapi", label: "OpenAPI Spec" }
+      - { value: "readme", label: "Readme / Docs" }
+templates:
+  - pattern: 'site:{domain} inurl:api'
+    description: 'Find API endpoints in URL'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:api'
+
+  - pattern: 'site:{domain} inurl:/v1/ OR inurl:/v2/ OR inurl:/v3/'
+    description: 'Find versioned API endpoints'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:/v1/ OR inurl:/v2/ OR inurl:/v3/'
+
+  - pattern: 'site:{domain} intext:"swagger" OR intext:"openapi"'
+    description: 'Find Swagger/OpenAPI documentation'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"swagger" OR intext:"openapi"'
+
+  - pattern: 'site:{domain} inurl:graphql'
+    description: 'Find GraphQL endpoints'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:graphql'
+
+  - pattern: 'site:{domain} inurl:/api/v1/users'
+    description: 'Find user API endpoints'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:/api/v1/users'
+
+  - pattern: 'site:{domain} filetype:json inurl:api'
+    description: 'Find JSON API responses'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:json inurl:api'
+
+  - pattern: 'site:{domain} inurl:rest OR inurl:restful'
+    description: 'Find REST API endpoints'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:rest OR inurl:restful'
+
+  - pattern: 'site:{domain} intitle:"API Documentation"'
+    description: 'Find API documentation pages'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"API Documentation"'

@@ -1,0 +1,63 @@
+category: database_panels
+description: Find database administration panels
+
+templates:
+  - pattern: 'site:{domain} inurl:"/phpmyadmin" intitle:"phpMyAdmin"'
+    description: 'Find phpMyAdmin login pages'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/phpmyadmin" intitle:"phpMyAdmin"'
+
+  - pattern: 'site:{domain} inurl:"/adminer" | inurl:"/adminer.php"'
+    description: 'Find Adminer database tool'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/adminer" | inurl:"/adminer.php"'
+
+  - pattern: 'site:{domain} intitle:"phpMyAdmin" intext:"Welcome to phpMyAdmin"'
+    description: 'Find phpMyAdmin welcome pages'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"phpMyAdmin" intext:"Welcome to phpMyAdmin"'
+
+  - pattern: 'site:{domain} inurl:"mongo-express"'
+    description: 'Find MongoDB Express admin panels'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"mongo-express"'
+
+  - pattern: 'site:{domain} inurl:"/pgadmin" | intitle:"pgAdmin"'
+    description: 'Find PostgreSQL pgAdmin panels'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/pgadmin" | intitle:"pgAdmin"'
+
+  - pattern: 'site:{domain} inurl:"/mysql" intitle:"MySQL"'
+    description: 'Find MySQL admin interfaces'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/mysql" intitle:"MySQL"'
+
+  - pattern: 'site:{domain} intitle:"SQL" inurl:"/admin"'
+    description: 'Find generic SQL admin panels'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"SQL" inurl:"/admin"'
+
+  - pattern: 'site:{domain} intitle:"RockMongo"'
+    description: 'Find RockMongo admin panels'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"RockMongo"'
+
+  - pattern: 'site:{domain} inurl:"redis-commander"'
+    description: 'Find Redis Commander panels'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"redis-commander"'
+
+  - pattern: 'site:{domain} intitle:"Database" inurl:"/admin" | inurl:"/db"'
+    description: 'Find database admin panels'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"Database" inurl:"/admin" | inurl:"/db"'

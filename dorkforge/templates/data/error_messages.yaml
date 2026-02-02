@@ -1,0 +1,63 @@
+category: error_messages
+description: Find error messages and stack traces that may reveal information
+
+templates:
+  - pattern: 'site:{domain} intext:"Warning: mysql_connect()"'
+    description: 'Find MySQL connection errors'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"Warning: mysql_connect()"'
+
+  - pattern: 'site:{domain} intext:"Fatal error" intext:"Call to undefined function"'
+    description: 'Find PHP fatal errors'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"Fatal error" intext:"Call to undefined function"'
+
+  - pattern: 'site:{domain} intext:"SQL syntax" intext:"mysql_fetch"'
+    description: 'Find SQL syntax errors'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"SQL syntax" intext:"mysql_fetch"'
+
+  - pattern: 'site:{domain} intitle:"500 Internal Server Error"'
+    description: 'Find 500 error pages'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"500 Internal Server Error"'
+
+  - pattern: 'site:{domain} intext:"Stack trace:" intext:"error"'
+    description: 'Find stack traces'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"Stack trace:" intext:"error"'
+
+  - pattern: 'site:{domain} intext:"A PHP Error was encountered"'
+    description: 'Find PHP framework errors (CodeIgniter)'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"A PHP Error was encountered"'
+
+  - pattern: 'site:{domain} intext:"Microsoft OLE DB Provider for SQL Server"'
+    description: 'Find ASP.NET database errors'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"Microsoft OLE DB Provider for SQL Server"'
+
+  - pattern: 'site:{domain} intext:"Syntax error in query expression"'
+    description: 'Find Access database errors'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"Syntax error in query expression"'
+
+  - pattern: 'site:{domain} intext:"java.lang.NullPointerException"'
+    description: 'Find Java exceptions'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"java.lang.NullPointerException"'
+
+  - pattern: 'site:{domain} intext:"Traceback (most recent call last)"'
+    description: 'Find Python tracebacks'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"Traceback (most recent call last)"'

@@ -1,0 +1,463 @@
+/* Matrix Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(10, 14, 26, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 65, 0.2);
+    border: 1px solid rgba(0, 255, 65, 0.4);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 65, 0.4);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+/* Glitch Effect for Logo */
+.glitch-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.logo:hover h1 {
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+    color: var(--accent-matrix);
+}
+
+.logo:hover h1::before,
+.logo:hover h1::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-secondary);
+}
+
+.logo:hover h1::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.logo:hover h1::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0)
+    }
+
+    20% {
+        transform: translate(-2px, 2px)
+    }
+
+    40% {
+        transform: translate(-2px, -2px)
+    }
+
+    60% {
+        transform: translate(2px, 2px)
+    }
+
+    80% {
+        transform: translate(2px, -2px)
+    }
+
+    100% {
+        transform: translate(0)
+    }
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip: rect(31px, 9999px, 94px, 0)
+    }
+
+    20% {
+        clip: rect(69px, 9999px, 5px, 0)
+    }
+
+    40% {
+        clip: rect(6px, 9999px, 43px, 0)
+    }
+
+    60% {
+        clip: rect(57px, 9999px, 83px, 0)
+    }
+
+    80% {
+        clip: rect(25px, 9999px, 23px, 0)
+    }
+
+    100% {
+        clip: rect(81px, 9999px, 11px, 0)
+    }
+}
+
+@keyframes glitch-anim2 {
+    0% {
+        clip: rect(83px, 9999px, 40px, 0)
+    }
+
+    20% {
+        clip: rect(10px, 9999px, 1px, 0)
+    }
+
+    40% {
+        clip: rect(53px, 9999px, 69px, 0)
+    }
+
+    60% {
+        clip: rect(24px, 9999px, 77px, 0)
+    }
+
+    80% {
+        clip: rect(35px, 9999px, 91px, 0)
+    }
+
+    100% {
+        clip: rect(51px, 9999px, 16px, 0)
+    }
+}
+
+/* =========================================
+   NEW: UI Motion & Refinements (Phase 7b)
+   ========================================= */
+
+/* 1. Tab Slide Animation */
+.tab-content {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: none;
+    /* Default hidden */
+}
+
+.tab-content.active {
+    display: block;
+    /* Required for layout */
+    animation: slideTabIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideTabIn {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 2. Glassmorphism Pro Max */
+.card,
+.ai-section,
+.validator-section {
+    background: rgba(30, 41, 59, 0.4) !important;
+    /* increased transparency */
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* 3. Interactive Hover Cards */
+.card:hover,
+.ai-section:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(0, 255, 65, 0.3) !important;
+    box-shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.2),
+        0 10px 10px -5px rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(0, 255, 65, 0.1) !important;
+}
+
+/* 4. Typing Effect for Subtitle */
+.subtitle {
+    display: inline-block;
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    border-right: 2px solid var(--accent-matrix);
+    /* The cursor */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    margin: 0 auto;
+    /* Gives that scrolling effect as the typing happens */
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+    max-width: fit-content;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--accent-matrix)
+    }
+}
+
+/* Remove cursor after animation is likely done to keep it clean */
+.subtitle {
+    animation-fill-mode: forwards;
+}
+
+/* Restore validation result slide animation override */
+.validation-result {
+    animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* UI/UX REDESIGN - PHASE 9 */
+
+/* 1. Modern Cyberpunk Tab Navigation */
+.tab-navigation {
+    display: inline-flex;
+    gap: 2rem;
+    /* Open spacing */
+    margin-bottom: var(--spacing-xl);
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    position: relative;
+}
+
+.tab-navigation::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: -1;
+}
+
+.tab-btn {
+    padding: 0.75rem 0;
+    background: transparent !important;
+    border: none;
+    border-radius: 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    position: relative;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-matrix);
+    box-shadow: 0 -2px 10px var(--accent-matrix);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    opacity: 1;
+    background: transparent;
+}
+
+.tab-btn.active {
+    color: var(--accent-matrix);
+    opacity: 1;
+    background: transparent;
+    box-shadow: none;
+}
+
+.tab-btn.active::after {
+    width: 100%;
+}
+
+.tab-icon {
+    margin-right: 8px;
+    /* Separate icon */
+}
+
+/* 2. Remove Settings Hover Rotation */
+.settings-btn {
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    border: none;
+    background: transparent;
+}
+
+.settings-btn:hover {
+    transform: rotate(90deg);
+    /* Re-add subtle rotation or keep static? User liked simple glow. Let's do simple glow but centered. */
+    transform: none !important;
+    color: var(--accent-matrix);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+.settings-btn svg {
+    transition: transform 0.3s ease;
+}
+
+/* Optional: Rotate only the ICON inside, subtle */
+.settings-btn:hover svg {
+    transform: rotate(90deg);
+}
+
+/* 3. Dork Trainer Balancing */
+.trainer-section {
+    padding: 2rem !important;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.progress-overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 2.5rem;
+}
+
+/* Ensure no visual conflicts from previous overrides */
+.card,
+.ai-section,
+.validator-section {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* 5. Fix Validation Section Layout - FINAL PATCH */
+/* 5. Fix Validation Section Layout - FINAL PATCH */
+.validator-section {
+    display: flex !important;
+    align-items: flex-end !important;
+    /* Align bottom of input and button */
+    justify-content: space-between !important;
+    gap: 1rem !important;
+    padding: 1.5rem 2rem !important;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    border-radius: 12px;
+}
+
+.validator-section .section-subtitle {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    color: var(--accent-matrix);
+    font-size: 1.1rem;
+}
+
+.validator-section .form-group {
+    flex: 1;
+    margin-bottom: 0 !important;
+    min-width: 250px;
+}
+
+.validator-section input {
+    width: 100%;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.validator-section input:focus {
+    border-color: var(--accent-matrix);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+}
+
+.validator-section button {
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0.75rem 2rem !important;
+    height: 46px;
+    /* Match input height approximately */
+    background: var(--accent-matrix) !important;
+    color: #000 !important;
+    font-weight: 600 !important;
+    border: none !important;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3) !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.validator-section button:hover {
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.5) !important;
+    transform: translateY(-2px) !important;
+}
+
+#validationResult {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.validator-disclaimer {
+    width: 100%;
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-align: center;
+}

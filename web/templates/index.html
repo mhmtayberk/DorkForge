@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 DorkForge - Google Dork Generator</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/category-search.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dork-trainer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dork-builder.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/background-effects.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/visual-polish.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/achievements.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/category-settings.css') }}">
+</head>
+
+<body>
+    <!-- Parallax Stars Background -->
+    <div class="star-container">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <h1 data-text="DorkForge">DorkForge</h1>
+                </div>
+                <p class="subtitle">Google Dork Generator for Pentesting</p>
+            </div>
+
+            <!-- Header Actions (Achievements + API Key Settings) -->
+            <div class="header-actions">
+
+                <button class="settings-btn" onclick="openSettings()" aria-label="API Key Settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Tab Navigation -->
+            <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                <nav class="tab-navigation" role="tablist" aria-label="Generator tabs">
+                    <button class="tab-btn active" data-tab="classic" role="tab" aria-selected="true"
+                        aria-controls="classicTab">
+                        <svg class="tab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        Classic Generator
+                    </button>
+                    <button class="tab-btn" data-tab="ai" role="tab" aria-selected="false" aria-controls="aiTab">
+                        <svg class="tab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        AI Generator
+                    </button>
+                    <button class="tab-btn" data-tab="trainer" role="tab" aria-selected="false"
+                        aria-controls="trainerTab">
+                        <svg class="tab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                        Dork Trainer
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Classic Generator Tab -->
+            <div id="classicTab" class="tab-content active">
+                <!-- Input Section -->
+                <section class="input-section card">
+                    <h2 class="section-title">Generate Dorks</h2>
+
+                    <div class="input-grid">
+                        <div class="form-group">
+                            <label for="domain">Target Domain</label>
+                            <input type="text" id="domain" placeholder="example.com" class="input" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="engine">Search Engine</label>
+                            <div class="select-wrapper">
+                                <select id="engine" class="input">
+                                    <option value="google" selected>Google</option>
+                                    <option value="bing">Bing</option>
+                                    <option value="duckduckgo">DuckDuckGo</option>
+                                    <option value="yahoo">Yahoo</option>
+                                    <option value="yandex">Yandex (RU/Eastern Europe)</option>
+                                    <option value="baidu">Baidu (China)</option>
+                                    <option value="brave">Brave</option>
+                                    <option value="startpage">StartPage</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categorySearch"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            Category
+                            <button id="toggle-category-settings"
+                                class="btn btn-secondary btn-sm ml-2 category-settings-toggle"
+                                title="Category Settings">
+                                <svg class="btn-icon" width="14" height="14" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
+                                    </path>
+                                </svg>
+                                Filters
+                            </button>
+                        </label>
+                        <div class="searchable-select">
+                            <input type="text" id="categorySearch" placeholder="Search categories..."
+                                class="input category-search-input" autocomplete="off" />
+                            <div id="categoryDropdown" class="category-dropdown hidden"></div>
+                            <!-- Hidden input to store selected category value -->
+                            <input type="hidden" id="category" value="">
+                        </div>
+                        <div id="selectedTags" class="tags-container"></div>
+                        <!-- Place for Inline Settings Panel -->
+                        <div id="inline-settings-container"></div>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="generateBtn" class="btn btn-primary">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            Generate Dorks
+                        </button>
+
+                        <button id="batchBtn" class="btn btn-secondary">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                            Batch (All Categories)
+                        </button>
+                    </div>
+
+                    <!-- Dork Builder CTA -->
+                    <div style="margin: 2.5rem 0;">
+                        <button onclick="openDorkBuilder()" class="btn" style="
+                            width: 100%;
+                            background: linear-gradient(135deg, #0369A1 0%, #0EA5E9 100%);
+                            box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 0.75rem;
+                            padding: 1.125rem 2rem;
+                        ">
+                            <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                </path>
+                            </svg>
+                            <span style="font-weight: 600;">Visual Dork Builder</span>
+                        </button>
+                        <p style="text-align: center; margin-top: 0.75rem; font-size: 0.875rem; color: #64748B;">
+                            Build dorks step-by-step with our guided wizard
+                        </p>
+                    </div>
+
+                    <!-- Validator Section -->
+                    <div class="validator-section" style="margin-top: 2rem;">
+                        <h3 class="section-subtitle">Validate Dork</h3>
+                        <div class="form-group">
+                            <input type="text" id="validateInput" placeholder='site:example.com filetype:pdf'
+                                class="input" />
+                        </div>
+                        <div class="button-group">
+                            <button id="validateBtn" class="btn btn-outline">
+                                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Validate
+                            </button>
+                            <button id="permuteBtn" class="btn btn-secondary" onclick="permuteDork()">
+                                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                    </path>
+                                </svg>
+                                Variations
+                            </button>
+                        </div>
+                        <div id="validationResult" class="validation-result hidden"></div>
+                    </div>
+                </section>
+
+                <!-- Results Section (Explicitly inside Classic Tab) -->
+                <section id="results" class="results-section hidden">
+                    <div class="results-header">
+                        <h2 class="section-title">Generated Dorks</h2>
+                        <div class="results-actions">
+
+
+                            <div class="export-dropdown">
+                                <button id="exportBtn" class="btn btn-sm btn-primary">
+                                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                    </svg>
+                                    Export
+                                </button>
+                                <div id="exportMenu" class="export-menu hidden">
+                                    <!-- Export options -->
+                                    <button class="export-option" data-format="txt">TXT</button>
+                                    <button class="export-option" data-format="json">JSON</button>
+                                    <button class="export-option" data-format="md">Markdown</button>
+                                    <button class="export-option" data-format="csv">CSV</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dorksContainer"></div>
+                </section>
+            </div>
+            <!-- End Classic Tab -->
+
+            <!-- AI Generator Tab (Updated Layout) -->
+            <div id="aiTab" class="tab-content">
+                <section class="card ai-section-full">
+                    <h2 class="section-title">🤖 AI-Assisted Dork Generation</h2>
+                    <!-- ... content ... -->
+
+                    <p class="ai-description">
+                        Natural language to Google Dork conversion using AI.
+                        Example: "Find exposed .env files on example.com"
+                    </p>
+
+                    <div class="form-group">
+                        <label>Describe what you're looking for</label>
+                        <textarea id="aiPrompt" class="input" rows="4"
+                            placeholder="Find SQL injection vulnerable login pages on target.com..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>AI Provider</label>
+                        <select id="aiProvider" class="input">
+                            <optgroup label="Cloud Providers">
+                                <option value="openai">OpenAI</option>
+                                <option value="gemini">Google Gemini</option>
+                                <option value="claude">Anthropic Claude</option>
+                                <option value="groq">Groq</option>
+                                <option value="deepseek">DeepSeek</option>
+                                <option value="grok">xAI Grok</option>
+                                <option value="huggingface">Hugging Face</option>
+                            </optgroup>
+                            <optgroup label="Local">
+                                <option value="ollama">Ollama</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div id="aiModelContainer" class="form-group hidden">
+                        <label>Model</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <select id="aiModel" class="input" disabled>
+                                <option value="" disabled selected>Select a model...</option>
+                            </select>
+                            <button id="refreshModelsBtn" class="btn btn-sm btn-outline" title="Refresh Models">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button id="aiGenerateBtn" class="btn btn-primary">
+                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        Generate with AI
+                    </button>
+
+                    <div id="aiResults" class="ai-results-container hidden">
+                        <div id="aiResultsContent" class="ai-results-content"></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Dork Trainer Tab -->
+            <div id="trainerTab" class="tab-content">
+                <section class="trainer-section">
+                    <div id="achievement-badge-container" class="trainer-badge-container"></div>
+                    <div id="trainer-container"></div>
+                </section>
+            </div>
+
+            <!-- Stats (Shared) -->
+            <div id="stats" class="stats hidden">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalDorks">0</div>
+                    <div class="stat-label">Dorks Generated</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="categoriesUsed">0</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>⚠️ For authorized security testing only. Always obtain written permission.</p>
+            <p class="footer-small">DorkForge v0.2.0 • Made with ❤️ for security professionals</p>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Generating dorks...</p>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Settings Panel -->
+    <div id="settings-overlay" class="settings-overlay" onclick="closeSettings()"></div>
+    <div id="settings-panel" class="settings-panel">
+        <div class="settings-header">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                API Key Settings
+            </h2>
+            <button class="close-settings" onclick="closeSettings()" aria-label="Close Settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="settings-content">
+            <div class="settings-section">
+                <h3>AI Provider Keys</h3>
+
+                <div class="api-key-field">
+                    <label>
+                        OpenAI
+                        <span class="key-status empty" data-status-for="OPENAI_API_KEY">Not set</span>
+                    </label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="OPENAI_API_KEY" placeholder="sk-..." autocomplete="off">
+                        <button class="toggle-visibility" onclick="toggleApiKeyVisibility('OPENAI_API_KEY')"
+                            type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="api-key-field">
+                    <label>
+                        Google Gemini
+                        <span class="key-status empty" data-status-for="GOOGLE_API_KEY">Not set</span>
+                    </label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="GOOGLE_API_KEY" placeholder="AIza..." autocomplete="off">
+                        <button class="toggle-visibility" onclick="toggleApiKeyVisibility('GOOGLE_API_KEY')"
+                            type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="api-key-field">
+                    <label>
+                        Anthropic Claude
+                        <span class="key-status empty" data-status-for="ANTHROPIC_API_KEY">Not set</span>
+                    </label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="ANTHROPIC_API_KEY" placeholder="sk-ant-..." autocomplete="off">
+                        <button class="toggle-visibility" onclick="toggleApiKeyVisibility('ANTHROPIC_API_KEY')"
+                            type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="api-key-field">
+                    <label>
+                        Groq
+                        <span class="key-status empty" data-status-for="GROQ_API_KEY">Not set</span>
+                    </label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="GROQ_API_KEY" placeholder="gsk_..." autocomplete="off">
+                        <button class="toggle-visibility" onclick="toggleApiKeyVisibility('GROQ_API_KEY')"
+                            type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="api-key-field">
+                    <label>
+                        DeepSeek
+                        <span class="key-status empty" data-status-for="DEEPSEEK_API_KEY">Not set</span>
+                    </label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="DEEPSEEK_API_KEY" placeholder="sk-..." autocomplete="off">
+                        <button class="toggle-visibility" onclick="toggleApiKeyVisibility('DEEPSEEK_API_KEY')"
+                            type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="api-key-field">
+                    <label>
+                        xAI Grok
+                        <span class="key-status empty" data-status-for="XAI_API_KEY">Not set</span>
+                    </label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="XAI_API_KEY" placeholder="xai-..." autocomplete="off">
+                        <button class="toggle-visibility" onclick="toggleApiKeyVisibility('XAI_API_KEY')" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="api-key-field">
+                    <label>
+                        Hugging Face
+                        <span class="key-status empty" data-status-for="HUGGINGFACE_API_KEY">Not set</span>
+                    </label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="HUGGINGFACE_API_KEY" placeholder="hf_..." autocomplete="off">
+                        <button class="toggle-visibility" onclick="toggleApiKeyVisibility('HUGGINGFACE_API_KEY')"
+                            type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="api-key-field">
+                    <label>
+                        Ollama URL
+                        <span class="key-status empty" data-status-for="OLLAMA_BASE_URL">Not set</span>
+                    </label>
+                    <div class="input-with-toggle">
+                        <input type="text" id="OLLAMA_BASE_URL" placeholder="http://localhost:11434" autocomplete="off">
+                        <button class="toggle-visibility" onclick="toggleApiKeyVisibility('OLLAMA_BASE_URL')"
+                            type="button" style="visibility: hidden;">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-actions">
+            <button id="save-settings-btn" class="save-settings-btn" onclick="saveSettings()">
+                Save Settings
+            </button>
+            <div id="settings-message-container"></div>
+        </div>
+    </div>
+
+    <!-- Dork Builder Modal -->
+    {% include 'components/dork-builder.html' %}
+
+    <script src="{{ url_for('static', filename='js/category-search.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/achievements.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/category-settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dork-trainer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dork-builder.js') }}"></script>
+</body>
+
+</html>

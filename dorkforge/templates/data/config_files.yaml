@@ -1,0 +1,57 @@
+category: config_files
+description: Find configuration files
+
+templates:
+  - pattern: 'site:{domain} ext:cfg'
+    description: 'Find .cfg configuration files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:cfg'
+
+  - pattern: 'site:{domain} ext:ini'
+    description: 'Find .ini configuration files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:ini'
+
+  - pattern: 'site:{domain} ext:conf'
+    description: 'Find .conf configuration files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:conf'
+
+  - pattern: 'site:{domain} filetype:xml intext:"config"'
+    description: 'Find XML config files'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:xml intext:"config"'
+
+  - pattern: 'site:{domain} ext:yaml OR ext:yml'
+    description: 'Find YAML configuration files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:yaml OR ext:yml'
+
+  - pattern: 'site:{domain} ext:toml'
+    description: 'Find TOML configuration files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:toml'
+
+  - pattern: 'site:{domain} inurl:web.config'
+    description: 'Find ASP.NET web.config files'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:web.config'
+
+  - pattern: 'site:{domain} inurl:wp-config.php'
+    description: 'Find WordPress config files'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:wp-config.php'
+
+  - pattern: 'site:{domain} (ext:xml OR ext:conf OR ext:cnf OR ext:reg OR ext:inf OR ext:rdp OR ext:cfg OR ext:txt OR ext:ora OR ext:ini OR ext:yaml OR ext:yml OR ext:toml)'
+    description: 'Mass Config Hunt (Search for 12+ config formats)'
+    params: [domain]
+    examples:
+      - 'site:example.com (ext:xml OR ext:conf OR ext:cnf OR ext:reg OR ext:inf OR ext:rdp OR ext:cfg OR ext:txt OR ext:ora OR ext:ini OR ext:yaml OR ext:yml OR ext:toml)'

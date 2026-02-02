@@ -1,0 +1,87 @@
+category: devops
+description: Find exposed DevOps tools, CI/CD pipelines, and infrastructure dashboards
+
+filters:
+  - id: "tool"
+    label: "Tool"
+    type: "multi-select"
+    key: "dork_contains" 
+    # Note: frontend filters on 'query' or 'description'. 
+    # 'query_contains' works if using site: or specialized keywords.
+    # For these specific dorks using inurl/intitle, manual selection is best or strictly description mapping.
+    # Using simple query string match for filter options:
+    options:
+      - { value: "kubernetes", label: "Kubernetes" }
+      - { value: "jenkins", label: "Jenkins" }
+      - { value: "docker", label: "Docker" }
+      - { value: "gitlab", label: "GitLab" }
+      - { value: "grafana", label: "Grafana" }
+      - { value: "kibana", label: "Kibana" }
+      - { value: "sonarqube", label: "SonarQube" }
+
+templates:
+  - pattern: 'intitle:"Kubernetes Dashboard" inurl:"#/pod"'
+    description: 'Find exposed Kubernetes Dashboards (Critical)'
+    params: []
+    examples:
+      - 'intitle:"Kubernetes Dashboard" inurl:"#/pod"'
+
+  - pattern: 'inurl:"/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/"'
+    description: 'Find exposed K8s API Proxy'
+    params: []
+    examples:
+      - 'inurl:"/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/"'
+
+  - pattern: 'intitle:"Jenkins" inurl:"script" intitle:"Script Console"'
+    description: 'Find Jenkins Script Console (RCE risk)'
+    params: []
+    examples:
+      - 'intitle:"Jenkins" inurl:"script" intitle:"Script Console"'
+
+  - pattern: 'intitle:"Dashboard [Jenkins]"'
+    description: 'Find public Jenkins Dashboards'
+    params: []
+    examples:
+      - 'intitle:"Dashboard [Jenkins]"'
+
+  - pattern: 'inurl:"/v2/_catalog"'
+    description: 'Find exposed Docker Registry v2 API'
+    params: []
+    examples:
+      - 'inurl:"/v2/_catalog"'
+
+  - pattern: 'site:gitlab.com intext:"CI_COMMIT_TOKEN"'
+    description: 'Find leaked GitLab CI tokens'
+    params: []
+    examples:
+      - 'site:gitlab.com intext:"CI_COMMIT_TOKEN"'
+
+  - pattern: 'intitle:"Grafana" inurl:"/dashboard"'
+    description: 'Find publicly accessible Grafana dashboards'
+    params: []
+    examples:
+      - 'intitle:"Grafana" inurl:"/dashboard"'
+
+  - pattern: 'intitle:"Kibana" inurl:"/app/kibana"'
+    description: 'Find unprotected Kibana instances'
+    params: []
+    examples:
+      - 'intitle:"Kibana" inurl:"/app/kibana"'
+
+  - pattern: 'intitle:"SonarQube" inurl:"/dashboard" "Quality Gate"'
+    description: 'Find exposed SonarQube projects'
+    params: []
+    examples:
+      - 'intitle:"SonarQube" inurl:"/dashboard" "Quality Gate"'
+
+  - pattern: 'intitle:"Traefik Dashboard" inurl:"/dashboard/"'
+    description: 'Find Traefik Reverse Proxy Dashboard'
+    params: []
+    examples:
+      - 'intitle:"Traefik Dashboard" inurl:"/dashboard/"'
+
+  - pattern: 'inurl:"/prometheus/graph"'
+    description: 'Find exposed Prometheus metrics'
+    params: []
+    examples:
+      - 'inurl:"/prometheus/graph"'

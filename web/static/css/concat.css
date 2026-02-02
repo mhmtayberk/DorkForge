@@ -1,0 +1,15 @@
+/* Concat dork styling */
+.concat-dork {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(51, 65, 85, 0.5) 100%);
+    border: 2px solid var(--accent-green);
+    margin-bottom: var(--spacing-md);
+}
+
+.concat-dork .dork-description {
+    color: var(--accent-green);
+}
+
+.concat-dork .dork-query {
+    background: var(--bg-primary);
+    border: 1px solid var(--accent-green);
+}

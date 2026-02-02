@@ -1,0 +1,106 @@
+/* Searchable Category Dropdown */
+
+.searchable-select {
+    position: relative;
+}
+
+.category-search-input {
+    cursor: text !important;
+}
+
+.category-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.category-dropdown.hidden {
+    display: none;
+}
+
+.category-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+}
+
+.category-item:last-child {
+    border-bottom: none;
+}
+
+.category-item:hover {
+    background: rgba(255, 140, 0, 0.08);
+    padding-left: 1.5rem;
+}
+
+.category-item.selected {
+    background: rgba(255, 140, 0, 0.15);
+    color: var(--accent-orange);
+    font-weight: 600;
+}
+
+.category-item.focused {
+    background: rgba(255, 140, 0, 0.12);
+    outline: 2px solid rgba(255, 140, 0, 0.3);
+    outline-offset: -2px;
+}
+
+.category-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+}
+
+.category-item:hover .category-icon,
+.category-item.selected .category-icon {
+    opacity: 1;
+}
+
+/* Loading state */
+.category-dropdown .loading {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* No results state */
+.category-dropdown .no-results {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* Scrollbar styling */
+.category-dropdown::-webkit-scrollbar {
+    width: 8px;
+}
+
+.category-dropdown::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0 12px 12px 0;
+}
+
+.category-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(255, 140, 0, 0.3);
+    border-radius: 4px;
+}
+
+.category-dropdown::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 140, 0, 0.5);
+}

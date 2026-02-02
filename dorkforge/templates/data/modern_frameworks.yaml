@@ -1,0 +1,76 @@
+category: modern_frameworks
+description: Find misconfigurations in modern web frameworks (Spring, Laravel, Django, etc.)
+
+filters:
+  - id: "framework"
+    label: "Framework"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "actuator", label: "Spring Boot" }
+      - { value: "laravel", label: "Laravel" }
+      - { value: "django", label: "Django" }
+      - { value: "rails", label: "Ruby on Rails" }
+      - { value: "graphql", label: "GraphQL" }
+      - { value: "asp.net", label: "ASP.NET" }
+
+templates:
+  - pattern: 'inurl:"/actuator/heapdump"'
+    description: 'Find Spring Boot Actuator Heapdump (Critical sensitive data)'
+    params: []
+    examples:
+      - 'inurl:"/actuator/heapdump"'
+
+  - pattern: 'inurl:"/actuator/env"'
+    description: 'Find Spring Boot Actuator Environment Variables'
+    params: []
+    examples:
+      - 'inurl:"/actuator/env"'
+
+  - pattern: 'intitle:"Ignition" intext:"Laravel" intext:"Stack trace"'
+    description: 'Find Laravel Ignition Debug Page (Code Execution)'
+    params: []
+    examples:
+      - 'intitle:"Ignition" intext:"Laravel" intext:"Stack trace"'
+
+  - pattern: 'intext:"You are seeing this page because DEBUG = True" intext:"Django"'
+    description: 'Find Django Debug Mode enabled'
+    params: []
+    examples:
+      - 'intext:"You are seeing this page because DEBUG = True" intext:"Django"'
+
+  - pattern: 'filetype:yml "database.yml" intext:"adapter: postgresql" password'
+    description: 'Find Rails database configuration leaks'
+    params: []
+    examples:
+      - 'filetype:yml "database.yml" intext:"adapter: postgresql" password'
+
+  - pattern: 'inurl:"/graphql" intitle:"GraphiQL"'
+    description: 'Find exposed GraphiQL Explorer (Introspection)'
+    params: []
+    examples:
+      - 'inurl:"/graphql" intitle:"GraphiQL"'
+
+  - pattern: 'inurl:"trace.axd" "Application Trace"'
+    description: 'Find ASP.NET Application Trace'
+    params: []
+    examples:
+      - 'inurl:"trace.axd" "Application Trace"'
+
+  - pattern: 'filetype:env "APP_NAME=Laravel"'
+    description: 'Find exposed Laravel .env files'
+    params: []
+    examples:
+      - 'filetype:env "APP_NAME=Laravel"'
+      
+  - pattern: 'inurl:"_wpeprivate" OR inurl:"_wpeadmin"'
+    description: 'Find WP Engine Private Staging Sites'
+    params: []
+    examples:
+      - 'inurl:"_wpeprivate" OR inurl:"_wpeadmin"'
+
+  - pattern: 'site:npm.runkit.com "token" OR "key"'
+    description: 'Find leaked secrets in RunKit notebooks'
+    params: []
+    examples:
+      - 'site:npm.runkit.com "token" OR "key"'

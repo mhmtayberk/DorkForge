@@ -1,0 +1,81 @@
+category: social_media_profiles
+name: "Social Media Profiles"
+description: "OSINT: Discover employee profiles, company social media accounts, and online presence"
+version: "1.0"
+author: "DorkForge"
+tags:
+  - osint
+  - social-media
+  - reconnaissance
+  - employees
+  - linkedin
+  - github
+  - leaked-data
+  - pdf
+  - confidential
+
+filters:
+  - id: "platform"
+    label: "Platform"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "linkedin.com", label: "LinkedIn" }
+      - { value: "twitter.com", label: "Twitter/X" }
+      - { value: "facebook.com", label: "Facebook" }
+      - { value: "instagram.com", label: "Instagram" }
+      - { value: "github.com", label: "GitHub" }
+      - { value: "reddit.com", label: "Reddit" }
+
+  - id: "type"
+    label: "Profile Type"
+    type: "select"
+    key: "description_contains"
+    options:
+      - { value: "profile", label: "User Profile" }
+      - { value: "company", label: "Company Page" }
+      - { value: "password", label: "Leaked Credentials" }
+
+templates:
+  - pattern: 'site:linkedin.com "{domain_name}" employees'
+    description: "LinkedIn employee profiles"
+    operators: [site]
+    note: "Replace {domain_name} with company name (e.g., 'Acme Corp')"
+    
+  - pattern: 'site:twitter.com | site:x.com "{domain_name}"'
+    description: "Twitter/X company profiles"
+    operators: [site]
+    note: "Search for company mentions on Twitter/X"
+    
+  - pattern: 'site:github.com "{domain_name}" | "@{domain}"'
+    description: "GitHub organization and repositories"
+    operators: [site]
+    note: "Find GitHub repos and contributors"
+    
+  - pattern: 'site:facebook.com "{domain_name}"'
+    description: "Facebook pages and mentions"
+    operators: [site]
+    
+  - pattern: 'site:instagram.com "{domain_name}"'
+    description: "Instagram profiles and mentions"
+    operators: [site]
+    
+  - pattern: 'site:reddit.com "{domain_name}"'
+    description: "Reddit discussions about the target"
+    operators: [site]
+    
+  - pattern: 'site:linkedin.com "at {domain_name}"'
+    description: "Find employees via 'at Company'"
+    operators: [site]
+    
+  - pattern: 'site:linkedin.com inurl:company "{domain_name}"'
+    description: "LinkedIn Company Page"
+    operators: [site, inurl]
+    
+  - pattern: 'site:glassdoor.com "{domain_name}"'
+    description: "Glassdoor reviews and interviews"
+    operators: [site]
+    
+  - pattern: 'site:xing.com "{domain_name}"'
+    description: "XING profiles ( DACH region)"
+    operators: [site]

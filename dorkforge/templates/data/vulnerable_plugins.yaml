@@ -1,0 +1,60 @@
+name: "Vulnerable Plugins"
+description: "Discover CMS plugins, WordPress themes, and known vulnerable components"
+version: "1.0"
+author: "DorkForge"
+tags:
+  - plugins
+  - wordpress
+  - cms
+  - vulnerabilities
+  - cve
+  - themes
+
+templates:
+  - pattern: 'site:{domain} inurl:"/wp-content/plugins/"'
+    description: "WordPress plugins directory"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} "powered by" "WordPress" | "Joomla" | "Drupal"'
+    description: "CMS identification"
+    operators: [site]
+    
+  - pattern: 'site:{domain} inurl:"/plugins/" ext:php'
+    description: "Plugin PHP files"
+    operators: [site, inurl, ext]
+    
+  - pattern: 'site:{domain} inurl:"/wp-content/themes/"'
+    description: "WordPress themes directory"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} intitle:"index of" inurl:wp-content/plugins'
+    description: "Directory listing of plugins"
+    operators: [site, intitle, inurl]
+    
+  - pattern: 'site:{domain} inurl:"/components/" "Joomla"'
+    description: "Joomla components"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:readme.txt inurl:wp-content/plugins'
+    description: "Plugin readme files (version disclosure)"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} "/wp-content/uploads/" ext:php'
+    description: "PHP files in uploads (potential backdoor)"
+    operators: [site, ext]
+    
+  - pattern: 'site:{domain} inurl:"/modules/" "Drupal"'
+    description: "Drupal modules"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} "wp-includes" | "wp-admin" inurl:js'
+    description: "WordPress core file exposure"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} inurl:xmlrpc.php'
+    description: "WordPress XML-RPC (DDoS/bruteforce vector)"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} intitle:"index of" "/wp-json/"'
+    description: "WordPress REST API directory listing"
+    operators: [site, intitle]

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: dorkforge_app
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      # Override flask debug in docker
+      - FLASK_DEBUG=0
+    # Uncomment to persist logs or data if needed
+    # volumes:
+    #   - ./logs:/app/logs

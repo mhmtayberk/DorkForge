@@ -1,0 +1,60 @@
+name: "Financial Data"
+description: "Discover payment systems, invoices, financial reports, and billing information"
+version: "1.0"
+author: "DorkForge"
+tags:
+  - payment
+  - invoice
+  - financial
+  - pci
+  - transaction
+  - billing
+
+templates:
+  - pattern: 'site:{domain} filetype:xls | filetype:xlsx "invoice"'
+    description: "Excel invoices"
+    operators: [site, filetype]
+    
+  - pattern: 'site:{domain} inurl:"/payment/" | inurl:"/checkout/"'
+    description: "Payment and checkout pages"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} intitle:"Payment Gateway" | "Stripe" | "PayPal"'
+    description: "Payment gateway pages"
+    operators: [site, intitle]
+    
+  - pattern: 'site:{domain} filetype:pdf "invoice" | "bill" | "receipt"'
+    description: "PDF invoices and receipts"
+    operators: [site, filetype]
+    
+  - pattern: 'site:{domain} inurl:billing | inurl:invoice'
+    description: "Billing and invoice pages"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} "credit card" filetype:xls | filetype:csv'
+    description: "Credit card data in spreadsheets (CRITICAL)"
+    operators: [site, filetype]
+    
+  - pattern: 'site:{domain} intext:"transaction id" | "order number"'
+    description: "Transaction records"
+    operators: [site, intext]
+    
+  - pattern: 'site:{domain} inurl:"/cart/" | inurl:"/basket/"'
+    description: "Shopping cart pages"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} filetype:csv "price" | "amount" | "total"'
+    description: "Financial CSV files"
+    operators: [site, filetype]
+    
+  - pattern: 'site:{domain} intitle:"Financial Report" filetype:pdf'
+    description: "Financial reports"
+    operators: [site, intitle, filetype]
+    
+  - pattern: 'site:{domain} inurl:subscription | inurl:billing-info'
+    description: "Subscription and billing info pages"
+    operators: [site, inurl]
+    
+  - pattern: 'site:{domain} "bank account" | "routing number" filetype:xls'
+    description: "Banking information (CRITICAL)"
+    operators: [site, filetype]

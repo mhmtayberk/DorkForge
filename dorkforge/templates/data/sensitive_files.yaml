@@ -1,0 +1,76 @@
+category: sensitive_files
+description: Find sensitive files that may contain credentials or confidential information
+
+templates:
+  - pattern: 'site:{domain} filetype:env'
+    description: 'Find .env environment files containing configuration'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:env'
+      - 'site:target.org filetype:env'
+
+  - pattern: 'site:{domain} filetype:env intext:"DB_PASSWORD"'
+    description: 'Find .env files with database passwords'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:env intext:"DB_PASSWORD"'
+
+  - pattern: 'site:{domain} filetype:config intext:password'
+    description: 'Find config files containing passwords'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:config intext:password'
+
+  - pattern: 'site:{domain} filetype:yml intext:api_key'
+    description: 'Find YAML files with API keys'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:yml intext:api_key'
+
+  - pattern: 'site:{domain} filetype:properties intext:password'
+    description: 'Find Java properties files with passwords'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:properties intext:password'
+
+  - pattern: 'site:{domain} ext:sql intext:"INSERT INTO" intext:"password"'
+    description: 'Find SQL dumps with password inserts'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:sql intext:"INSERT INTO" intext:"password"'
+
+  - pattern: 'site:{domain} filetype:log intext:password'
+    description: 'Find log files that may contain passwords'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:log intext:password'
+
+  - pattern: 'site:{domain} filetype:txt intext:"api_key" OR intext:"apikey"'
+    description: 'Find text files with API keys'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:txt intext:"api_key" OR intext:"apikey"'
+
+  - pattern: 'site:{domain} filetype:json intext:"password" OR intext:"api_key"'
+    description: 'Find JSON files with credentials'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:json intext:"password" OR intext:"api_key"'
+
+  - pattern: 'site:{domain} ext:pem OR ext:key'
+    description: 'Find private keys and certificates'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:pem OR ext:key'
+
+  - pattern: 'site:{domain} filetype:json inurl:postman_collection'
+    description: 'Find sensitive Postman Collections'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:json inurl:postman_collection'
+
+  - pattern: 'site:{domain} filetype:ovpn'
+    description: 'Find exposed OpenVPN configuration (High Risk)'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:ovpn'

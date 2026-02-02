@@ -1,0 +1,111 @@
+/* Parallax Star Background */
+/* Inspired by: https://codepen.io/sarazond/pen/LYGbwj */
+
+body {
+    background: radial-gradient(ellipse at bottom, #0a0e1a 0%, #05070e 100%);
+    overflow-x: hidden;
+}
+
+/* Star Layers Container */
+.star-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Star Variable Function (Simulating SASS loop with clean CSS) */
+/* Utilizing multiple box-shadows to create stars on a single element */
+
+#stars {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow:
+        1744px 122px #FFF, 134px 1321px #FFF, 892px 648px #FFF, 1692px 1478px #FFF,
+        882px 1749px #FFF, 195px 632px #FFF, 1928px 482px #FFF, 34px 1234px #FFF,
+        123px 456px #FFF, 678px 901px #FFF, 1234px 567px #FFF, 890px 123px #FFF,
+        456px 789px #FFF, 234px 567px #FFF, 876px 234px #FFF, 543px 876px #FFF,
+        1456px 987px #FFF, 987px 345px #FFF, 654px 123px #FFF, 321px 654px #FFF,
+        159px 753px #FFF, 951px 357px #FFF, 753px 159px #FFF, 357px 951px #FFF,
+        1200px 800px #FFF, 400px 1200px #FFF, 1600px 400px #FFF, 800px 1600px #FFF,
+        100px 100px #FFF, 1800px 1800px #FFF, 500px 1500px #FFF, 1500px 500px #FFF,
+        250px 750px #FFF, 1750px 250px #FFF, 1250px 1250px #FFF, 750px 250px #FFF,
+        50px 950px #FFF, 1950px 50px #FFF, 550px 550px #FFF, 1550px 1550px #FFF,
+        300px 1300px #FFF, 1300px 300px #FFF, 900px 1100px #FFF, 1100px 900px #FFF,
+        600px 1400px #FFF, 1400px 600px #FFF, 200px 1800px #FFF, 1800px 200px #FFF,
+        1744px 122px #FFF, 134px 1321px #FFF, 892px 648px #FFF, 1692px 1478px #FFF;
+    animation: animStar 150s linear infinite;
+}
+
+#stars::after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: inherit;
+}
+
+#stars2 {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow:
+        1234px 1567px #FFF, 345px 890px #FFF, 1876px 234px #FFF, 543px 1234px #FFF,
+        987px 654px #FFF, 123px 432px #FFF, 1654px 987px #FFF, 876px 1543px #FFF,
+        234px 678px #FFF, 1543px 234px #FFF, 678px 123px #FFF, 1987px 876px #FFF,
+        432px 1654px #FFF, 1678px 345px #FFF, 345px 1987px #FFF, 1345px 567px #FFF,
+        765px 1432px #FFF, 1890px 765px #FFF, 123px 1890px #FFF, 987px 123px #FFF,
+        567px 890px #FFF, 1432px 567px #FFF, 789px 1345px #FFF, 234px 987px #FFF,
+        1500px 500px #FFF, 500px 1500px #FFF, 1000px 1000px #FFF, 200px 1200px #FFF,
+        1800px 300px #FFF, 300px 1800px #FFF, 1200px 200px #FFF, 600px 1600px #FFF;
+    animation: animStar 100s linear infinite;
+}
+
+#stars2::after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: inherit;
+}
+
+#stars3 {
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow:
+        567px 890px #FFF, 1432px 234px #FFF, 789px 1345px #FFF, 1987px 567px #FFF,
+        1234px 1567px #FFF, 345px 345px #FFF, 1876px 1234px #FFF, 543px 678px #FFF,
+        987px 987px #FFF, 123px 1654px #FFF, 1654px 432px #FFF, 876px 1890px #FFF,
+        234px 234px #FFF, 1543px 1890px #FFF, 678px 789px #FFF, 1500px 1000px #FFF;
+    animation: animStar 50s linear infinite;
+}
+
+#stars3::after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: inherit;
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-2000px);
+    }
+}

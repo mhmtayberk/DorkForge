@@ -1,0 +1,63 @@
+category: server_info
+description: Find server information and log files
+
+templates:
+  - pattern: 'site:{domain} intitle:"phpinfo()"'
+    description: 'Find phpinfo() pages'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"phpinfo()"'
+
+  - pattern: 'site:{domain} ext:log'
+    description: 'Find exposed log files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:log'
+
+  - pattern: 'site:{domain} inurl:access.log | inurl:error.log'
+    description: 'Find Apache/Nginx access and error logs'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:access.log | inurl:error.log'
+
+  - pattern: 'site:{domain} intitle:"Index of" "server-status"'
+    description: 'Find Apache server-status pages'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"Index of" "server-status"'
+
+  - pattern: 'site:{domain} inurl:"/health" | inurl:"/status" | inurl:"/metrics"'
+    description: 'Find application health and metrics endpoints'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/health" | inurl:"/status" | inurl:"/metrics"'
+
+  - pattern: 'site:{domain} intext:"Server: Apache" | intext:"Server: nginx"'
+    description: 'Find server version information'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"Server: Apache" | intext:"Server: nginx"'
+
+  - pattern: 'site:{domain} intitle:"Nginx Status"'
+    description: 'Find Nginx status pages'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"Nginx Status"'
+
+  - pattern: 'site:{domain} inurl:"/debug" | inurl:"/trace"'
+    description: 'Find debug and trace pages'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:"/debug" | inurl:"/trace"'
+
+  - pattern: 'site:{domain} ext:log intext:"exception" | intext:"error"'
+    description: 'Find error logs and exceptions'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:log intext:"exception" | intext:"error"'
+
+  - pattern: 'site:{domain} intitle:"Dashboard" inurl:"kibana" | inurl:"grafana"'
+    description: 'Find monitoring dashboards'
+    params: [domain]
+    examples:
+      - 'site:example.com intitle:"Dashboard" inurl:"kibana" | inurl:"grafana"'

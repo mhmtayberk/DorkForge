@@ -1,0 +1,75 @@
+category: source_code
+description: Find exposed source code files
+
+filters:
+  - id: "platform"
+    label: "Platform"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "github.com", label: "GitHub" }
+      - { value: "gitlab.com", label: "GitLab" }
+      - { value: "bitbucket.org", label: "Bitbucket" }
+
+  - id: "language"
+    label: "Language"
+    type: "multi-select"
+    key: "query_contains"
+    options:
+      - { value: "ext:py", label: "Python" }
+      - { value: "ext:js", label: "JavaScript" }
+      - { value: "ext:go", label: "Go" }
+      - { value: "ext:java", label: "Java" }
+      - { value: "ext:php", label: "PHP" }
+      - { value: "ext:rb", label: "Ruby" }
+      - { value: ".env", label: ".env Config" }
+      - { value: "config", label: "Config Files" }
+
+templates:
+  - pattern: 'site:{domain} ext:php'
+    description: 'Find PHP source files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:php'
+
+  - pattern: 'site:{domain} ext:java'
+    description: 'Find Java source files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:java'
+
+  - pattern: 'site:{domain} ext:py'
+    description: 'Find Python source files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:py'
+
+  - pattern: 'site:{domain} ext:js intext:"api" OR intext:"key"'
+    description: 'Find JavaScript files with API references'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:js intext:"api" OR intext:"key"'
+
+  - pattern: 'site:{domain} filetype:inc'
+    description: 'Find PHP include files'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:inc'
+
+  - pattern: 'site:{domain} ext:cs OR ext:vb'
+    description: 'Find C# or VB.NET source files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:cs OR ext:vb'
+
+  - pattern: 'site:{domain} inurl:.git/config'
+    description: 'Find exposed git config files'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:.git/config'
+
+  - pattern: 'site:{domain} inurl:.svn/entries'
+    description: 'Find exposed SVN repository files'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:.svn/entries'

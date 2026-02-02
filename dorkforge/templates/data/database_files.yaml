@@ -1,0 +1,57 @@
+category: database_files
+description: Find database files and dumps
+
+templates:
+  - pattern: 'site:{domain} ext:sql'
+    description: 'Find SQL files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:sql'
+
+  - pattern: 'site:{domain} ext:db'
+    description: 'Find database files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:db'
+
+  - pattern: 'site:{domain} ext:sqlite OR ext:sqlite3'
+    description: 'Find SQLite database files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:sqlite OR ext:sqlite3'
+
+  - pattern: 'site:{domain} ext:mdb'
+    description: 'Find Microsoft Access database files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:mdb'
+
+  - pattern: 'site:{domain} filetype:sql intext:"INSERT INTO"'
+    description: 'Find SQL dumps with data'
+    params: [domain]
+    examples:
+      - 'site:example.com filetype:sql intext:"INSERT INTO"'
+
+  - pattern: 'site:{domain} ext:dbf'
+    description: 'Find dBASE database files'
+    params: [domain]
+    examples:
+      - 'site:example.com ext:dbf'
+
+  - pattern: 'site:{domain} intext:"phpMyAdmin" intext:"running on"'
+    description: 'Find phpMyAdmin installations'
+    params: [domain]
+    examples:
+      - 'site:example.com intext:"phpMyAdmin" intext:"running on"'
+
+  - pattern: 'site:{domain} inurl:adminer'
+    description: 'Find Adminer database tool'
+    params: [domain]
+    examples:
+      - 'site:example.com inurl:adminer'
+
+  - pattern: 'site:{domain} (ext:sql OR ext:db OR ext:dbf OR ext:mdb OR ext:sqlite OR ext:sqlite3 OR ext:dat OR ext:log OR ext:tar)'
+    description: 'Mass Database Hunt (Search for 9+ database formats)'
+    params: [domain]
+    examples:
+      - 'site:example.com (ext:sql OR ext:db OR ext:dbf OR ext:mdb OR ext:sqlite OR ext:sqlite3 OR ext:dat OR ext:log OR ext:tar)'
